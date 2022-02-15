@@ -1,4 +1,6 @@
 // =========== main.bicep ===========
+
+// Params
 @minLength(3)
 @maxLength(11)
 param prefix string
