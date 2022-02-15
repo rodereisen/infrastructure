@@ -6,24 +6,20 @@ param prefix string
 @maxLength(11)
 param location string
 
+// @minLength(3)
+// @maxLength(11)
+// param subscriptionId string
+
 // =========== main.bicep ===========
 
 // Setting target scope
 targetScope = 'subscription'
 
-// Creating resource group
+// Deploying domains using module
 resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-domains'
   location: location
 }
-
-// Creating resource group
-resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-website'
-  location: location
-}
-
-// Deploying domains using module
 module domains './website/main.bicep' = {
   name: 'domainsDeployment'
   scope: domainsRg
@@ -32,7 +28,13 @@ module domains './website/main.bicep' = {
     location: location
   }
 }
+
 // Deploying storage account using module
+
+resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: '${prefix}-website'
+  location: location
+}
 module website './website/main.bicep' = {
   name: 'websiteDeployment'
   scope: websiteRg
