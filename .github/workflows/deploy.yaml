@@ -20,5 +20,5 @@ jobs:
           region: germanywestcentral
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./main.bicep
-          parameters: prefix=rr location=germanywestcentral subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }} token=${{ secrets.GH_PAT }}
+          parameters: prefix=rr location=germanywestcentral token=${{ secrets.GH_PAT }}
           failOnStdErr: false

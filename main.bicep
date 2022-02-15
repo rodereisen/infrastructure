@@ -9,10 +9,6 @@ param prefix string
 @maxLength(11)
 param location string
 
-/* @minLength(3)
-@maxLength(59)
-param subscriptionId string */
-
 @minLength(3)
 @maxLength(59)
 param token string
