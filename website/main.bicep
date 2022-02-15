@@ -15,11 +15,9 @@ param token string
 var repositoryUrl = 'https://github.com/rodereisen/rodereisen-de'
 var branch = 'main'
 var appArtifactLocation = 'https://github.com/rodereisen/rodereisen-de'
-var namePrefix = 'website'
 
 // Vars
-
-var siteName = '${namePrefix}${uniqueString(resourceGroup().id)}'
+var siteName = '${prefix}${uniqueString(resourceGroup().id)}'
 var sku = 'Free'
 
 // Create the Static Site
@@ -28,14 +26,14 @@ resource staticSite 'Microsoft.Web/staticSites@2021-03-01' = {
   location: location
   name: siteName
   properties: {
-    buildProperties:{
+    buildProperties: {
       appArtifactLocation: appArtifactLocation
     }
     repositoryUrl: repositoryUrl
     branch: branch
     repositoryToken: token
   }
-  sku:{
+  sku: {
     name: sku
   }
 }
@@ -44,4 +42,4 @@ resource staticSite 'Microsoft.Web/staticSites@2021-03-01' = {
 output siteName string = staticSite.name
 output siteUrl string = staticSite.properties.defaultHostname
 
-output deployment_token string = listSecrets(staticSite.id, staticSite.apiVersion).properties.apiKey
+// output deployment_token string = listSecrets(staticSite.id, staticSite.apiVersion).properties.apiKey
