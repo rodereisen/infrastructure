@@ -16,19 +16,19 @@ param token string
 // Setting target scope
 targetScope = 'subscription'
 
-// Deploying domains using module
-resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-domains'
-  location: location
-}
-module domains './domains/main.bicep' = {
-  name: 'domainsDeployment'
-  scope: domainsRg
-  params: {
-    prefix: prefix
-    location: location
-  }
-}
+// // Deploying domains using module
+// resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+//   name: '${prefix}-domains'
+//   location: location
+// }
+// module domains './domains/main.bicep' = {
+//   name: 'domainsDeployment'
+//   scope: domainsRg
+//   params: {
+//     prefix: prefix
+//     // location: location
+//   }
+// }
 
 // Deploying website using module
 resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
