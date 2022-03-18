@@ -4,7 +4,7 @@
 param prefix string
 
 @minLength(3)
-@maxLength(11)
+@maxLength(30)
 param location string
 
 @description('Enter your GitHub PAT')
