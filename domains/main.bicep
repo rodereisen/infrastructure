@@ -14,6 +14,19 @@ resource rodeIo 'Microsoft.Network/dnsZones@2018-05-01' = {
   location: 'global'
 }
 
+resource rodeIoMx 'Microsoft.Network/dnsZones/MX@2018-05-01' = {
+  name: 'string'
+  parent: rodeIo
+  properties: {
+    MXRecords: [
+      {
+        exchange: 'rode-io.mail.protection.outlook.com'
+        preference: 0
+      }
+    ]
+  }
+}
+
 // var rodereisenDeName = '${prefix}rodereisen${uniqueString(resourceGroup().id)}'
 var rodereisenDeName = 'rodereisen.de'
 resource rodereisenDe 'Microsoft.Network/dnsZones@2018-05-01' = {
