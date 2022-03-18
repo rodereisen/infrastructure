@@ -16,6 +16,5 @@ jobs:
           region: westeurope
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./main.bicep
-          parameters: prefix=rr location=westeurope 
-          # parameters: prefix=rr location=westeurope token=${{ secrets.GH_PAT }}
+          parameters: prefix=rr location=westeurope token=${{ secrets.GH_PAT }}
           failOnStdErr: false
