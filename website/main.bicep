@@ -14,9 +14,12 @@ param token string
 // Vars
 var repositoryUrl = 'https://github.com/rodereisen/rodereisen-de'
 var branch = 'main'
-var appArtifactLocation = 'https://github.com/rodereisen/rodereisen-de'
+var appArtifactLocation = 'src'
 var siteName = '${prefix}${uniqueString(resourceGroup().id)}'
-var sku = 'Free'
+var skuName = 'Free'
+var skuTier = 'Free'
+var appLocation = '/'
+var apiLocation = ''
 
 // Resources
 // Create the Static Site
@@ -25,6 +28,8 @@ resource staticSite 'Microsoft.Web/staticSites@2021-03-01' = {
   name: siteName
   properties: {
     buildProperties: {
+      appLocation: appLocation
+      apiLocation: apiLocation
       appArtifactLocation: appArtifactLocation
     }
     repositoryUrl: repositoryUrl
@@ -32,9 +37,16 @@ resource staticSite 'Microsoft.Web/staticSites@2021-03-01' = {
     repositoryToken: token
   }
   sku: {
-    name: sku
+    name: skuName
+    tier: skuTier
   }
 }
+
+// resource name_appsettings 'Microsoft.Web/staticSites/config@2021-01-15' = {
+//   parent: name_resource
+//   name: 'appsettings'
+//   properties: appSettings
+// }
 
 // Output
 output siteName string = staticSite.name
