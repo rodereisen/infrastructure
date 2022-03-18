@@ -9,9 +9,9 @@ param prefix string
 @maxLength(30)
 param location string
 
-@minLength(3)
-@maxLength(59)
-param token string
+// @minLength(3)
+// @maxLength(59)
+// param token string
 
 // Setting target scope
 targetScope = 'subscription'
