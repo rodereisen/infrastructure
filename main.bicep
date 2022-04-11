@@ -19,14 +19,19 @@ targetScope = 'subscription'
 // Resources
 module domains './domains/main.bicep' = {
   name: 'domainsDeployment'
-  location: location
-  domainName: 'rode'
-  topLevelDomainName: 'io'
+  params: {
+    location: location
+    domainName: 'rode'
+    topLevelDomainName: 'io'
+  }
 }
 
 // Deploying website using module
 module website './website/main.bicep' = {
   name: '${prefix}-website'
-  location: location
-  token: token
+  params: {
+    location: location
+    token: token
+    name: 'domainsDeployment'
+  }  
 }
