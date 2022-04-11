@@ -16,6 +16,9 @@ param topLevelDomainName string
 // Resources
 var dns = '${domainName}.${topLevelDomainName}'
 
+// Setting target scope
+targetScope = 'subscription'
+
 resource rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${domainName}-${topLevelDomainName}-domains'
   location: location

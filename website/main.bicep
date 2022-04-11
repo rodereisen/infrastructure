@@ -21,6 +21,9 @@ var skuTier = 'Free'
 var appLocation = '/'
 var apiLocation = ''
 
+// Setting target scope
+targetScope = 'subscription'
+
 resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-website'
   location: location
