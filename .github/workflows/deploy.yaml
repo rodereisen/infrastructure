@@ -1,8 +1,15 @@
-on: [push]
-name: Azure ARM
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: Azure
     steps:
       - uses: actions/checkout@main
       - uses: azure/login@v1

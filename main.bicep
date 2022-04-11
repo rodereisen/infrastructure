@@ -14,7 +14,8 @@ param location string
 //param token string
 
 @minLength(2)
-@maxLength(40)
+@maxLength(100)
+@secure()
 param mscid string
 
 // Variables
