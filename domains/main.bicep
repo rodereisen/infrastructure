@@ -33,6 +33,10 @@ param mscid string
 @maxLength(40)
 param azureStaticWebAppName string
 
+@minLength(2)
+@maxLength(40)
+param azureStaticWebAppToken string
+
 // Variables
 var ttl = 3600
 
@@ -172,6 +176,19 @@ resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
 }
 
 // TXT Records
+resource swaValidation 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
+  name: '${dnszone.name}/@'
+  properties: {
+    TTL: ttl
+    TXTRecords: [
+      {
+        value: [
+          azureStaticWebAppToken
+        ]
+      }
+    ]
+  }
+}
 resource spf 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
   name: '${dnszone.name}/@'
   properties: {
