@@ -52,3 +52,4 @@ resource staticSite 'Microsoft.Web/staticSites@2021-03-01' = {
 output siteName string = staticSite.name
 output siteUrl string = staticSite.properties.defaultHostname
 // output deployment_token string = listSecrets(staticSite.id, staticSite.apiVersion).properties.apiKey
+

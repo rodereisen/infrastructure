@@ -66,6 +66,7 @@ resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
 }
 module website './website/main.bicep' = {
   name: '${prefix}-website'
+  scope: websiteRg
   params: {
     prefix: 'homepage'
     location: location
