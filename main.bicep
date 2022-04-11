@@ -18,7 +18,7 @@ targetScope = 'subscription'
 
 // Resources
 module domains './domains/main.bicep' = {
-  name: 'domainsDeployment'
+  name: 'rodeIodomainsDeployment'
   params: {
     location: location
     domainName: 'rode'
@@ -32,6 +32,5 @@ module website './website/main.bicep' = {
   params: {
     location: location
     token: token
-    name: 'domainsDeployment'
   }  
 }
