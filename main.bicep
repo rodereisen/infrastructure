@@ -30,6 +30,7 @@ module domains './domains/main.bicep' = {
 module website './website/main.bicep' = {
   name: '${prefix}-website'
   params: {
+    prefix: 'homepage'
     location: location
     token: token
   }  
