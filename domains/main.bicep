@@ -184,18 +184,6 @@ resource swaValidation 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
       {
         value: [
           azureStaticWebAppToken
-        ]
-      }
-    ]
-  }
-}
-resource spf 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
-  name: '${dnszone.name}/@'
-  properties: {
-    TTL: ttl
-    TXTRecords: [
-      {
-        value: [
           'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
           'mscid=${mscid}'
         ]
