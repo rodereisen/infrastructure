@@ -26,7 +26,7 @@ param ipv4 string
 param ipv6 string
 
 @minLength(2)
-@maxLength(40)
+@maxLength(100)
 param mscid string
 
 @minLength(2)
