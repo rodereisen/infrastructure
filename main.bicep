@@ -27,6 +27,23 @@ var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 targetScope = 'subscription'
 
 // Resources
+
+//// Website
+resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: '${prefix}-website'
+  location: location
+}
+module website './website/main.bicep' = {
+  name: '${prefix}-website'
+  scope: websiteRg
+  params: {
+    prefix: 'rr'
+    location: location
+    token: token
+  }
+}
+
+//// Domains
 resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-domains'
   location: location
@@ -35,7 +52,7 @@ module rodeIoDomain './domains/main.bicep' = {
   name: 'rodeIoDomain'
   scope: domainsRg
   params: {
-    azureStaticWebAppName: azureStaticWebAppName
+    azureStaticWebAppName: website.outputs.siteUrl
     azureStaticWebAppToken: '123'
     domainName: 'rode'
     ipv4: ipv4
@@ -49,27 +66,12 @@ module rodereisenDeDomain './domains/main.bicep' = {
   name: 'ro22dereisenDeDomain'
   scope: domainsRg
   params: {
-    azureStaticWebAppName: azureStaticWebAppName
+    azureStaticWebAppName: website.outputs.siteUrl
     azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
     domainName: 'rodereisen'
     ipv4: ipv4
     ipv6: ipv6
     mscid: mscid
     topLevelDomainName: 'de'
-  }
-}
-
-// Deploying website using module
-resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-website'
-  location: location
-}
-module website './website/main.bicep' = {
-  name: '${prefix}-website'
-  scope: websiteRg
-  params: {
-    prefix: 'rr'
-    location: location
-    token: token
   }
 }
