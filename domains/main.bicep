@@ -21,10 +21,10 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
 }
 
 module dnsZone './dnszone.bicep' = {
-  name: '${dns}'
+  name: dns
   scope: rg
   params: {
-    dnsZoneName: '${dns}'
+    dnsZoneName: dns
   }
 }
 
