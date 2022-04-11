@@ -1,6 +1,8 @@
-// @minLength(2)
-// @maxLength(11)
-// param prefix string
+// =========== main.bicep ===========
+// Params
+@minLength(2)
+@maxLength(20)
+param location string
 
 @minLength(2)
 @maxLength(20)
@@ -11,11 +13,18 @@ param domainName string
 param topLevelDomainName string
 
 // Resources
-var dns = '${prefix}rodeio${uniqueString(resourceGroup().id)}'
+var dns = '${domainName}.${topLevelDomainName}'
+
+resource rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: '${domainName}-${topLevelDomainName}-domains'
+  location: location
+}
 
 module dnsZone './dnszone.bicep' = {
   name: '${dns}'
+  scope: rg
   params: {
-    dnsZoneName: name: '${dns}'
+    dnsZoneName: '${dns}'
   }
 }
+

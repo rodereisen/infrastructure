@@ -1,5 +1,4 @@
 // =========== main.bicep ===========
-
 // Params
 @minLength(2)
 @maxLength(11)
@@ -16,16 +15,13 @@ param location string
 // Setting target scope
 targetScope = 'subscription'
 
-// Deploying domains using module
-resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-domains'
-  location: location
-}
+// Resources
 module domains './domains/main.bicep' = {
   name: 'domainsDeployment'
   scope: domainsRg
-  domainName: 'rodereisen'
-  topLevelDomainName: 'de'
+  location: location
+  domainName: 'rode'
+  topLevelDomainName: 'io'
 }
 
 // Deploying website using module

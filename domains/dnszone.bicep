@@ -1,5 +1,10 @@
+// =========== main.bicep ===========
+// Params
+@minLength(2)
+@maxLength(20)
 param dnsZoneName string
 
+// Resources
 resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
   name: dnsZoneName
   location: 'global'
