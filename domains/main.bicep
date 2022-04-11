@@ -30,11 +30,11 @@ param ipv6 string
 param mscid string
 
 @minLength(2)
-@maxLength(40)
+@maxLength(100)
 param azureStaticWebAppName string
 
 @minLength(2)
-@maxLength(40)
+@maxLength(100)
 param azureStaticWebAppToken string
 
 // Variables
