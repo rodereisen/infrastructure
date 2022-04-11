@@ -13,11 +13,19 @@ param location string
 //@secure()
 //param token string
 
+@minLength(2)
+@maxLength(40)
+param mscid string
+
+// Variables
+var azureStaticWebAppName = 'black-pebble-0f29bd703.azurestaticapps.net'
+var ipv4 = '5.175.14.35'
+var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
+
 // Setting target scope
 targetScope = 'subscription'
 
 // Resources
-
 resource rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-domains'
   location: location
@@ -26,10 +34,12 @@ module rodeIoDomain './domains/main.bicep' = {
   name: 'rodeIoDomain'
   scope: rg
   params: {
+    azureStaticWebAppName: azureStaticWebAppName
     domainName: 'rode'
+    ipv4: ipv4
+    ipv6: ipv6
+    mscid: mscid
     topLevelDomainName: 'io'
-    ipv4: '5.175.14.35'
-    // ipv6: '2a01:488:42:1000:50ed:8223:e6:9d2e'
   }
 }
 
@@ -37,10 +47,12 @@ module rodereisenDeDomain './domains/main.bicep' = {
   name: 'rodereisenDeDomain'
   scope: rg
   params: {
+    azureStaticWebAppName: azureStaticWebAppName
     domainName: 'rodereisen'
+    ipv4: ipv4
+    ipv6: ipv6
+    mscid: mscid
     topLevelDomainName: 'de'
-    ipv4: '5.175.14.35'
-    // ipv6: '2a01:488:42:1000:50ed:8223:e6:9d2e'
   }
 }
 

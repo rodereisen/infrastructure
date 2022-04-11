@@ -21,12 +21,19 @@ param topLevelDomainName string
 @maxLength(40)
 param ipv4 string
 
-// @minLength(2)
-// @maxLength(40)
-// param ipv6 string
+@minLength(2)
+@maxLength(40)
+param ipv6 string
+
+@minLength(2)
+@maxLength(40)
+param mscid string
+
+@minLength(2)
+@maxLength(40)
+param azureStaticWebAppName string
 
 // Variables
-var mscid = 'amUzpW6lC6BwVZC+9LgXvoF+EgM63n1M0rlXX28RoJrOoe1vhPmLipWtk9KC5uFfRR0hx03v/oKhFjk/uoxVYQ=='
 var ttl = 3600
 
 // Resources
@@ -52,13 +59,27 @@ resource homeDomain 'Microsoft.Network/dnszones/A@2018-05-01' = {
   }
 }
 
+// AAAA Records
+resource homeDomain6 'Microsoft.Network/dnszones/AAAA@2018-05-01' = {
+  name: '${dnszone.name}/@'
+  properties: {
+    TTL: ttl
+    AAAARecords: [
+      {
+        ipv6Address: ipv6
+      }
+    ]
+    targetResource: {}
+  }
+}
+
 // CNAME Records
 resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: '${dnszone.name}/www'
   properties: {
     TTL: ttl
     CNAMERecord: {
-      cname: 'black-pebble-0f29bd703.azurestaticapps.net'
+      cname: azureStaticWebAppName
     }
     targetResource: {}
   }
