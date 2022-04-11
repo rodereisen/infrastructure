@@ -21,19 +21,11 @@ var skuTier = 'Free'
 var appLocation = '/'
 var apiLocation = ''
 
-// Setting target scope
-targetScope = 'subscription'
-
-resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-website'
-  location: location
-}
-
 // Resources
 // Create the Static Site
 resource staticSite 'Microsoft.Web/staticSites@2021-03-01' = {
-  location: location
   name: siteName
+  location: location
   properties: {
     buildProperties: {
       appLocation: appLocation
