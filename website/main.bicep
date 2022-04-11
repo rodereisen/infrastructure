@@ -21,6 +21,11 @@ var skuTier = 'Free'
 var appLocation = '/'
 var apiLocation = ''
 
+resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: '${prefix}-website'
+  location: location
+}
+
 // Resources
 // Create the Static Site
 resource staticSite 'Microsoft.Web/staticSites@2021-03-01' = {
