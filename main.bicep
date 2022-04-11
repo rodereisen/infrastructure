@@ -24,6 +24,8 @@ resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
 module domains './domains/main.bicep' = {
   name: 'domainsDeployment'
   scope: domainsRg
+  domainName: 'rodereisen'
+  topLevelDomainName: 'de'
 }
 
 // Deploying website using module
