@@ -36,7 +36,7 @@ module rodeIoDomain './domains/main.bicep' = {
   scope: rg
   params: {
     azureStaticWebAppName: azureStaticWebAppName
-    azureStaticWebAppToken: ''
+    azureStaticWebAppToken: '123'
     domainName: 'rode'
     ipv4: ipv4
     ipv6: ipv6
