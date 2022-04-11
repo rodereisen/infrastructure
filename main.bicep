@@ -8,17 +8,17 @@ param prefix string
 @maxLength(30)
 param location string
 
-@minLength(3)
-@maxLength(59)
-@secure()
-param token string
+//@minLength(3)
+//@maxLength(59)
+//@secure()
+//param token string
 
 // Setting target scope
 targetScope = 'subscription'
 
 // Resources
-module domains './domains/main.bicep' = {
-  name: 'rodeIodomainsDeployment'
+module rodeIoDomain './domains/main.bicep' = {
+  name: 'rodeIoDomain'
   params: {
     location: location
     domainName: 'rode'
@@ -27,11 +27,11 @@ module domains './domains/main.bicep' = {
 }
 
 // Deploying website using module
-module website './website/main.bicep' = {
-  name: '${prefix}-website'
-  params: {
-    prefix: 'homepage'
-    location: location
-    token: token
-  }  
-}
+//module website './website/main.bicep' = {
+//  name: '${prefix}-website'
+//  params: {
+//    prefix: 'homepage'
+//    location: location
+//    token: token
+//  }
+//}
