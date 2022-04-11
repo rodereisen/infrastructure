@@ -68,7 +68,7 @@ module website './website/main.bicep' = {
   name: '${prefix}-website'
   scope: websiteRg
   params: {
-    prefix: 'homepage'
+    prefix: 'rr'
     location: location
     token: token
   }
