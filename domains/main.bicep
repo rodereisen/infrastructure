@@ -29,9 +29,9 @@ param ipv6 string
 // @maxLength(100)
 // param mscid string
 
-// @minLength(2)
-// @maxLength(100)
-// param azureStaticWebAppName string
+@minLength(2)
+@maxLength(100)
+param azureStaticWebAppName string
 
 // @minLength(2)
 // @maxLength(100)
@@ -78,16 +78,16 @@ resource homeDomain6 'Microsoft.Network/dnszones/AAAA@2018-05-01' = {
 }
 
 // CNAME Records
-// resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-//   name: '${dnszone.name}/www'
-//   properties: {
-//     TTL: ttl
-//     CNAMERecord: {
-//       cname: azureStaticWebAppName
-//     }
-//     targetResource: {}
-//   }
-// }
+resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+  name: '${dnszone.name}/www'
+  properties: {
+    TTL: ttl
+    CNAMERecord: {
+      cname: azureStaticWebAppName
+    }
+    targetResource: {}
+  }
+}
 resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: '${dnszone.name}/msoid'
   properties: {

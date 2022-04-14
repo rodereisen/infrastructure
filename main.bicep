@@ -21,6 +21,7 @@ param token string
 param mscid string
 
 // Variables
+var azureStaticWebAppName = 'black-pebble-0f29bd703.azurestaticapps.net'
 var ipv4 = '5.175.14.35'
 var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 
@@ -53,6 +54,7 @@ module rodeIoDomain './domains/main.bicep' = {
   name: 'rodeIoDomain'
   scope: domainsRg
   params: {
+    azureStaticWebAppName: azureStaticWebAppName
     // azureStaticWebAppName: website.outputs.siteUrl
     // azureStaticWebAppToken: '123'
     // mscid: mscid
@@ -67,6 +69,7 @@ module rodereisenDeDomain './domains/main.bicep' = {
   name: 'rodereisenDeDomain'
   scope: domainsRg
   params: {
+    azureStaticWebAppName: azureStaticWebAppName
     // azureStaticWebAppName: website.outputs.siteUrl
     // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
     // mscid: mscid
