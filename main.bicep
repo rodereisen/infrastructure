@@ -62,7 +62,7 @@ module rodeIoDomain './domains/main.bicep' = {
 }
 
 module rodereisenDeDomain './domains/main.bicep' = {
-  name: 'ro22dereisenDeDomain'
+  name: 'rodereisenDeDomain'
   scope: domainsRg
   params: {
     azureStaticWebAppName: website.outputs.siteUrl
