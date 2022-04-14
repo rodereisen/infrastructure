@@ -25,9 +25,9 @@ param ipv4 string
 @maxLength(40)
 param ipv6 string
 
-// @minLength(2)
-// @maxLength(100)
-// param mscid string
+@minLength(2)
+@maxLength(100)
+param mscid string
 
 @minLength(2)
 @maxLength(100)
@@ -205,13 +205,26 @@ resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
     TXTRecords: [
       {
         value: [
+          'mscid=${mscid}'
           'v=spf1 include:spf.protection.outlook.com -all'
-          // 'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
         ]
       }
     ]
   }
 }
+// resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
+//   name: '${dnszone.name}/@'
+//   properties: {
+//     TTL: ttl
+//     TXTRecords: [
+//       {
+//         value: [
+//           'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
+//         ]
+//       }
+//     ]
+//   }
+// }
 
 // SRV Records
 resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
