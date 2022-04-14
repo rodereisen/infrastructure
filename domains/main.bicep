@@ -156,24 +156,36 @@ resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
     TTL: ttl
     MXRecords: [
       {
-        exchange: 'mx01.hornetsecurity.com'
+        exchange: 'rodereisen-de.mail.protection.outlook.com'
         preference: 10
-      }
-      {
-        exchange: 'mx02.hornetsecurity.com'
-        preference: 20
-      }
-      {
-        exchange: 'mx03.hornetsecurity.com'
-        preference: 30
-      }
-      {
-        exchange: 'mx04.hornetsecurity.com'
-        preference: 40
       }
     ]
   }
 }
+// resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
+//   name: '${dnszone.name}/@'
+//   properties: {
+//     TTL: ttl
+//     MXRecords: [
+//       {
+//         exchange: 'mx01.hornetsecurity.com'
+//         preference: 10
+//       }
+//       {
+//         exchange: 'mx02.hornetsecurity.com'
+//         preference: 20
+//       }
+//       {
+//         exchange: 'mx03.hornetsecurity.com'
+//         preference: 30
+//       }
+//       {
+//         exchange: 'mx04.hornetsecurity.com'
+//         preference: 40
+//       }
+//     ]
+//   }
+// }
 
 // TXT Records
 resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
@@ -183,7 +195,8 @@ resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
     TXTRecords: [
       {
         value: [
-          'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
+          'v=spf1 include:spf.protection.outlook.com -all'
+          // 'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
         ]
       }
     ]
