@@ -213,7 +213,7 @@ resource srvSipFederation 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
     TTL: ttl
     SRVRecords: [
       {
-        port: 443
+        port: 5061
         priority: 100
         target: 'sipfed.online.lync.com'
         weight: 1
