@@ -166,7 +166,7 @@ resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
     TTL: ttl
     MXRecords: [
       {
-        exchange: 'rodereisen-de.mail.protection.outlook.com'
+        exchange: '${domainName}-${topLevelDomainName}.mail.protection.outlook.com'
         preference: 10
       }
     ]
