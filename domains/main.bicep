@@ -27,14 +27,17 @@ param ipv6 string
 
 @minLength(2)
 @maxLength(100)
+#disable-next-line no-unused-params
 param mscid string
 
 @minLength(2)
 @maxLength(100)
+#disable-next-line no-unused-params
 param azureStaticWebAppName string
 
 @minLength(2)
 @maxLength(100)
+#disable-next-line no-unused-params
 param azureStaticWebAppToken string
 
 // Variables
