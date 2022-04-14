@@ -176,31 +176,21 @@ resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
 }
 
 // TXT Records
-resource swaValidation 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
+resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
   name: '${dnszone.name}/@'
   properties: {
     TTL: ttl
     TXTRecords: [
       {
         value: [
-          azureStaticWebAppToken
-        ]
-      }
-      {
-        value: [
           'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
-        ]
-      }
-      {
-        value: [
-          azureStaticWebAppToken
         ]
       }
     ]
   }
 }
 
-// TXT Records
+// SRV Records
 resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
   name: '${dnszone.name}/_sip._tls'
   properties: {
