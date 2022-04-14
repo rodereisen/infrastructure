@@ -16,6 +16,7 @@ param token string
 @minLength(2)
 @maxLength(100)
 @secure()
+#disable-next-line no-unused-params
 param mscid string
 
 // Variables
