@@ -206,6 +206,10 @@ resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
       {
         value: [
           'mscid=${mscid}'
+        ]
+      }
+      {
+        value: [
           'v=spf1 include:spf.protection.outlook.com -all'
         ]
       }

@@ -57,7 +57,7 @@ module rodeIoDomain './domains/main.bicep' = {
     azureStaticWebAppName: azureStaticWebAppName
     // azureStaticWebAppName: website.outputs.siteUrl
     // azureStaticWebAppToken: '123'
-    // mscid: mscid
+    mscid: mscid
     domainName: 'rode'
     ipv4: ipv4
     ipv6: ipv6
@@ -72,7 +72,7 @@ module rodereisenDeDomain './domains/main.bicep' = {
     azureStaticWebAppName: azureStaticWebAppName
     // azureStaticWebAppName: website.outputs.siteUrl
     // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
-    // mscid: mscid
+    mscid: mscid
     domainName: 'rodereisen'
     ipv4: ipv4
     ipv6: ipv6
