@@ -67,7 +67,7 @@ module rodereisenDeDomain './domains/main.bicep' = {
   params: {
     // azureStaticWebAppName: website.outputs.siteUrl
     // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
-    // domainName: 'rodereisen'
+    domainName: 'rodereisen'
     ipv4: ipv4
     ipv6: ipv6
     // mscid: mscid
