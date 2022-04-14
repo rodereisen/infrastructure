@@ -103,11 +103,21 @@ resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   properties: {
     TTL: ttl
     CNAMERecord: {
-      cname: 'autodiscover.hornetsecurity.com'
+      cname: 'autodiscover.outlook.com'
     }
     targetResource: {}
   }
 }
+// resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+//   name: '${dnszone.name}/autodiscover'
+//   properties: {
+//     TTL: ttl
+//     CNAMERecord: {
+//       cname: 'autodiscover.hornetsecurity.com'
+//     }
+//     targetResource: {}
+//   }
+// }
 resource sip 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: '${dnszone.name}/sip'
   properties: {
