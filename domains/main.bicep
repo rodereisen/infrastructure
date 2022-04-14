@@ -38,7 +38,7 @@ param ipv6 string
 // param azureStaticWebAppToken string
 
 // Variables
-var ttl = 3600
+var ttl = 600
 
 // Resources
 resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
