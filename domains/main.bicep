@@ -25,20 +25,17 @@ param ipv4 string
 @maxLength(40)
 param ipv6 string
 
-@minLength(2)
-@maxLength(100)
-#disable-next-line no-unused-params
-param mscid string
+// @minLength(2)
+// @maxLength(100)
+// param mscid string
 
-@minLength(2)
-@maxLength(100)
-#disable-next-line no-unused-params
-param azureStaticWebAppName string
+// @minLength(2)
+// @maxLength(100)
+// param azureStaticWebAppName string
 
-@minLength(2)
-@maxLength(100)
-#disable-next-line no-unused-params
-param azureStaticWebAppToken string
+// @minLength(2)
+// @maxLength(100)
+// param azureStaticWebAppToken string
 
 // Variables
 var ttl = 3600

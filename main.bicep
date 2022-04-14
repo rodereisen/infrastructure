@@ -51,12 +51,12 @@ module rodeIoDomain './domains/main.bicep' = {
   name: 'rodeIoDomain'
   scope: domainsRg
   params: {
-    azureStaticWebAppName: website.outputs.siteUrl
-    azureStaticWebAppToken: '123'
+    // azureStaticWebAppName: website.outputs.siteUrl
+    // azureStaticWebAppToken: '123'
     domainName: 'rode'
     ipv4: ipv4
     ipv6: ipv6
-    mscid: mscid
+    // mscid: mscid
     topLevelDomainName: 'io'
   }
 }
@@ -65,12 +65,12 @@ module rodereisenDeDomain './domains/main.bicep' = {
   name: 'rodereisenDeDomain'
   scope: domainsRg
   params: {
-    azureStaticWebAppName: website.outputs.siteUrl
-    azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
-    domainName: 'rodereisen'
+    // azureStaticWebAppName: website.outputs.siteUrl
+    // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
+    // domainName: 'rodereisen'
     ipv4: ipv4
     ipv6: ipv6
-    mscid: mscid
+    // mscid: mscid
     topLevelDomainName: 'de'
   }
 }
