@@ -33,15 +33,15 @@ resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-website'
   location: location
 }
-module website './website/main.bicep' = {
-  name: '${prefix}-website'
-  scope: websiteRg
-  params: {
-    prefix: 'rr'
-    location: location
-    token: token
-  }
-}
+// module website './website/main.bicep' = {
+//   name: '${prefix}-website'
+//   scope: websiteRg
+//   params: {
+//     prefix: 'rr'
+//     location: location
+//     token: token
+//   }
+// }
 
 //// Domains
 resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
