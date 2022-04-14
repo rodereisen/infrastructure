@@ -11,6 +11,7 @@ param location string
 @minLength(3)
 @maxLength(59)
 @secure()
+#disable-next-line no-unused-params
 param token string
 
 @minLength(2)
