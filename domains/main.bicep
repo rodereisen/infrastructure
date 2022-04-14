@@ -184,8 +184,16 @@ resource swaValidation 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
       {
         value: [
           azureStaticWebAppToken
+        ]
+      }
+      {
+        value: [
           'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
-          'mscid=${mscid}'
+        ]
+      }
+      {
+        value: [
+          azureStaticWebAppToken
         ]
       }
     ]
