@@ -98,26 +98,26 @@ resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
     targetResource: {}
   }
 }
-resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/autodiscover'
-  properties: {
-    TTL: ttl
-    CNAMERecord: {
-      cname: 'autodiscover.outlook.com'
-    }
-    targetResource: {}
-  }
-}
 // resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
 //   name: '${dnszone.name}/autodiscover'
 //   properties: {
 //     TTL: ttl
 //     CNAMERecord: {
-//       cname: 'autodiscover.hornetsecurity.com'
+//       cname: 'autodiscover.outlook.com'
 //     }
 //     targetResource: {}
 //   }
 // }
+resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+  name: '${dnszone.name}/autodiscover'
+  properties: {
+    TTL: ttl
+    CNAMERecord: {
+      cname: 'autodiscover.hornetsecurity.com'
+    }
+    targetResource: {}
+  }
+}
 resource sip 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: '${dnszone.name}/sip'
   properties: {
@@ -160,44 +160,62 @@ resource enterpriseenrollment 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
 }
 
 // MX Records
-resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
-  name: '${dnszone.name}/@'
-  properties: {
-    TTL: ttl
-    MXRecords: [
-      {
-        exchange: '${domainName}-${topLevelDomainName}.mail.protection.outlook.com'
-        preference: 10
-      }
-    ]
-  }
-}
 // resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
 //   name: '${dnszone.name}/@'
 //   properties: {
 //     TTL: ttl
 //     MXRecords: [
 //       {
-//         exchange: 'mx01.hornetsecurity.com'
+//         exchange: '${domainName}-${topLevelDomainName}.mail.protection.outlook.com'
 //         preference: 10
-//       }
-//       {
-//         exchange: 'mx02.hornetsecurity.com'
-//         preference: 20
-//       }
-//       {
-//         exchange: 'mx03.hornetsecurity.com'
-//         preference: 30
-//       }
-//       {
-//         exchange: 'mx04.hornetsecurity.com'
-//         preference: 40
 //       }
 //     ]
 //   }
 // }
+resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
+  name: '${dnszone.name}/@'
+  properties: {
+    TTL: ttl
+    MXRecords: [
+      {
+        exchange: 'mx01.hornetsecurity.com'
+        preference: 10
+      }
+      {
+        exchange: 'mx02.hornetsecurity.com'
+        preference: 20
+      }
+      {
+        exchange: 'mx03.hornetsecurity.com'
+        preference: 30
+      }
+      {
+        exchange: 'mx04.hornetsecurity.com'
+        preference: 40
+      }
+    ]
+  }
+}
 
 // TXT Records
+// resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
+//   name: '${dnszone.name}/@'
+//   properties: {
+//     TTL: ttl
+//     TXTRecords: [
+//       {
+//         value: [
+//           'mscid=${mscid}'
+//         ]
+//       }
+//       {
+//         value: [
+//           'v=spf1 include:spf.protection.outlook.com -all'
+//         ]
+//       }
+//     ]
+//   }
+// }
 resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
   name: '${dnszone.name}/@'
   properties: {
@@ -210,25 +228,12 @@ resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
       }
       {
         value: [
-          'v=spf1 include:spf.protection.outlook.com -all'
+          'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
         ]
       }
     ]
   }
 }
-// resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
-//   name: '${dnszone.name}/@'
-//   properties: {
-//     TTL: ttl
-//     TXTRecords: [
-//       {
-//         value: [
-//           'v=spf1 include:spf.protection.outlook.com include:spf.hornetsecurity.com -all'
-//         ]
-//       }
-//     ]
-//   }
-// }
 
 // SRV Records
 resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
