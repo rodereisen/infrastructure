@@ -50,20 +50,6 @@ resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-domains'
   location: location
 }
-module rodeIoDomain './domains/main.bicep' = {
-  name: 'rodeIoDomain'
-  scope: domainsRg
-  params: {
-    azureStaticWebAppName: azureStaticWebAppName
-    // azureStaticWebAppName: website.outputs.siteUrl
-    // azureStaticWebAppToken: '123'
-    mscid: mscid
-    domainName: 'rode'
-    ipv4: ipv4
-    ipv6: ipv6
-    topLevelDomainName: 'io'
-  }
-}
 
 module rodereisenDeDomain './domains/main.bicep' = {
   name: 'rodereisenDeDomain'
