@@ -77,42 +77,42 @@ module rodereisenDeDomain './domains/main.bicep' = {
 }
 
 //// Paxconnect Exporter
-// param appName string = 'paxConnectExporter'
-// param tenantId string = tenant().tenantId
+param appName string = 'paxConnectExporter'
+param tenantId string = tenant().tenantId
 
-// resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-//   name: '${prefix}-paxconnect-exporter'
-//   location: location
-// }
+resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: '${prefix}-paxconnect-exporter'
+  location: location
+}
 
-// module operatorSetup 'operator-setup/main.bicep' = {
-//   name: 'operatorSetup-deployment'
-//   scope: paxConnectExporterRg
-//   params: {
-//     operatorPrincipalId: deploymentOperatorId
-//     appName: appName
-//   }
-// }
+module operatorSetup 'operator-setup/main.bicep' = {
+  name: 'operatorSetup-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    operatorPrincipalId: deploymentOperatorId
+    appName: appName
+  }
+}
 
-// module msi 'msi/main.bicep' = {
-//   name: 'msi-deployment'
-//   scope: paxConnectExporterRg
-//   params: {
-//     location: location
-//     managedIdentityName: '${prefix}Identity'
-//     operatorRoleDefinitionId: operatorSetup.outputs.roleId
-//   }
-// }
+module msi 'msi/main.bicep' = {
+  name: 'msi-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    location: location
+    managedIdentityName: '${prefix}Identity'
+    operatorRoleDefinitionId: operatorSetup.outputs.roleId
+  }
+}
 
-// module keyvault 'keyvault/main.bicep' = {
-//   name: 'keyvault-deployment'
-//   scope: paxConnectExporterRg
-//   params: {
-//     location: location
-//     appName: appName
-//     tenantId: tenantId
-//   }
-// }
+module keyvault 'keyvault/main.bicep' = {
+  name: 'keyvault-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    location: location
+    appName: appName
+    tenantId: tenantId
+  }
+}
 
 // module cosmos 'cosmos-db/main.bicep' = {
 //   name: 'cosmos-deployment'
