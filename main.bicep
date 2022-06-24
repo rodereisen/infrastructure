@@ -77,7 +77,7 @@ module rodereisenDeDomain './domains/main.bicep' = {
 }
 
 //// Paxconnect Exporter
-param appName string = 'paxConnectExporter'
+// param appName string = 'paxConnectExporter'
 // param tenantId string = tenant().tenantId
 
 resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
@@ -85,14 +85,14 @@ resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = 
   location: location
 }
 
-module operatorSetup 'operator-setup/main.bicep' = {
-  name: 'operatorSetup-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    operatorPrincipalId: deploymentOperatorId
-    appName: appName
-  }
-}
+// module operatorSetup 'operator-setup/main.bicep' = {
+//   name: 'operatorSetup-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     operatorPrincipalId: deploymentOperatorId
+//     appName: appName
+//   }
+// }
 
 // module msi 'msi/main.bicep' = {
 //   name: 'msi-deployment'
