@@ -112,9 +112,8 @@ module keyvault 'keyvault/main.bicep' = {
   scope: paxConnectExporterRg
   params: {
     location: paxLocation
-    appName: appName
+    appName: 'pe-${appSuffix}'
     tenantId: tenantId
-    appSuffix: appSuffix
   }
 }
 
