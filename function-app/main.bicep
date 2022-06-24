@@ -4,7 +4,7 @@
 
 // note: https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
 param location string = resourceGroup().location
-param functionRuntime string = 'dotnet'
+// param functionRuntime string = 'dotnet'
 
 @description('A name for this whole project, used to help name individual resources')
 param appName string
@@ -15,8 +15,8 @@ param appInternalServiceName string
 @description('Id of a existing keyvault that will be used to store and retrieve keys in this deployment')
 param keyVaultName string
 
-@description('User-assigned managed identity that will be attached to this function and will have power to connect to different resources.')
-param msiRbacId string
+// @description('User-assigned managed identity that will be attached to this function and will have power to connect to different resources.')
+// param msiRbacId string
 
 // @description('Application insights instrumentation key.')
 // param appInsightsInstrumentationKey string
