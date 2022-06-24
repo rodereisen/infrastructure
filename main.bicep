@@ -94,25 +94,25 @@ module operatorSetup 'operator-setup/main.bicep' = {
   }
 }
 
-// module msi 'msi/main.bicep' = {
-//   name: 'msi-deployment'
-//   scope: paxConnectExporterRg
-//   params: {
-//     location: location
-//     managedIdentityName: '${prefix}Identity'
-//     operatorRoleDefinitionId: operatorSetup.outputs.roleId
-//   }
-// }
+module msi 'msi/main.bicep' = {
+  name: 'msi-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    location: location
+    managedIdentityName: '${prefix}Identity'
+    operatorRoleDefinitionId: operatorSetup.outputs.roleId
+  }
+}
 
-// module keyvault 'keyvault/main.bicep' = {
-//   name: 'keyvault-deployment'
-//   scope: paxConnectExporterRg
-//   params: {
-//     location: location
-//     appName: appName
-//     tenantId: tenantId
-//   }
-// }
+module keyvault 'keyvault/main.bicep' = {
+  name: 'keyvault-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    location: location
+    appName: appName
+    tenantId: tenantId
+  }
+}
 
 // module cosmos 'cosmos-db/main.bicep' = {
 //   name: 'cosmos-deployment'
