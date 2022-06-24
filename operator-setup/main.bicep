@@ -10,7 +10,7 @@ param appName string
 resource roledefinition_deploymentOperator 'Microsoft.Authorization/roleDefinitions@2018-07-01' = {
   name: guid('deployment-operator', appName)
   properties: {
-    roleName: 'Operator role for app ${appName}'
+    roleName: 'Operator role for our app ${appName}'
     description: 'This role orchestrates this deployment and allows the communication between the components in this solution.'
     assignableScopes: [
       resourceGroup().id
