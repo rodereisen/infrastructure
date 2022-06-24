@@ -5,7 +5,7 @@
 // note: https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
 param location string = resourceGroup().location
 #disable-next-line no-unused-params
-param functionRuntime string = 'dotnet'
+param functionRuntime string = 'node'
 
 @description('A name for this whole project, used to help name individual resources')
 param appName string
@@ -19,10 +19,6 @@ param keyVaultName string
 @description('User-assigned managed identity that will be attached to this function and will have power to connect to different resources.')
 #disable-next-line no-unused-params
 param msiRbacId string
-
-@description('Application insights instrumentation key.')
-#disable-next-line no-unused-params
-param appInsightsInstrumentationKey string
 
 param deploymentDate string = utcNow()
 
