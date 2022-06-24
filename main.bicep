@@ -61,20 +61,20 @@ resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   location: location
 }
 
-// module rodereisenDeDomain './domains/main.bicep' = {
-//   name: 'rodereisenDeDomain'
-//   scope: domainsRg
-//   params: {
-//     azureStaticWebAppName: azureStaticWebAppName
-//     // azureStaticWebAppName: website.outputs.siteUrl
-//     // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
-//     mscid: mscid
-//     domainName: 'rodereisen'
-//     ipv4: ipv4
-//     ipv6: ipv6
-//     topLevelDomainName: 'de'
-//   }
-// }
+module rodereisenDeDomain './domains/main.bicep' = {
+  name: 'rodereisenDeDomain'
+  scope: domainsRg
+  params: {
+    azureStaticWebAppName: azureStaticWebAppName
+    // azureStaticWebAppName: website.outputs.siteUrl
+    // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
+    mscid: mscid
+    domainName: 'rodereisen'
+    ipv4: ipv4
+    ipv6: ipv6
+    topLevelDomainName: 'de'
+  }
+}
 
 //// Paxconnect Exporter
 // param appName string = 'paxConnectExporter'
