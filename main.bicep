@@ -37,7 +37,7 @@ var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 targetScope = 'subscription' // a 4-char suffix to add to the various names of azure resources to help them be unique, but still, previsible
 
 // Resources
-var salt = '1'
+var salt = 2
 var appSuffix = substring(uniqueString('${paxConnectExporterRg.id}${salt}'), 0, 5)
 
 //// Website
