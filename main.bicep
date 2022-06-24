@@ -97,12 +97,13 @@ module operatorSetup 'operator-setup/main.bicep' = {
   }
 }
 
+var managedIdentityName = '${prefix}-msi-${appSuffix}'
 module msi 'msi/main.bicep' = {
   name: 'msi-deployment'
   scope: paxConnectExporterRg
   params: {
     location: paxLocation
-    managedIdentityName: '${prefix}Identity'
+    managedIdentityName: managedIdentityName
     operatorRoleDefinitionId: operatorSetup.outputs.roleId
   }
 }
