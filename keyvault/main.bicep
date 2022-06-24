@@ -20,7 +20,7 @@ param networkAcls object = {
 var appSuffix = substring(uniqueString(resourceGroup().id), 0, 4)
 
 resource keyvault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
-  name: '${vaultName}${appSuffix}'
+  name: '${vaultName}-${appSuffix}'
   location: location
   properties: {
     tenantId: tenantId
