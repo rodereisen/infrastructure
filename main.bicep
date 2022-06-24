@@ -129,12 +129,12 @@ module cosmos 'cosmos-db/main.bicep' = {
 }
 
 module azureFunctions_api 'function-app/main.bicep' = {
-  name: 'func-api'
+  name: 'func-api-${appSuffix}'
   scope: paxConnectExporterRg
   params: {
     appName: appName
     location: paxLocation
-    appInternalServiceName: 'api'
+    appInternalServiceName: 'api-${appSuffix}'
     keyVaultName: keyvault.outputs.keyVaultName
     msiRbacId: msi.outputs.id
   }
