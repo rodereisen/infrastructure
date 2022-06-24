@@ -125,7 +125,7 @@ module cosmos 'cosmos-db/main.bicep' = {
 }
 
 module azureFunctions_api 'function-app/main.bicep' = {
-  name: 'functions-app-deployment-api'
+  name: 'func-api'
   scope: paxConnectExporterRg
   params: {
     appName: appName
