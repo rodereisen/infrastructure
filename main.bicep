@@ -113,16 +113,16 @@ module keyvault 'keyvault/main.bicep' = {
   }
 }
 
-// module cosmos 'cosmos-db/main.bicep' = {
-//   name: 'cosmos-deployment'
-//   scope: paxConnectExporterRg
-//   params: {
-//     cosmosAccountId: '${appName}-db'
-//     location: location
-//     cosmosDbName: appName
-//     keyVaultName: keyvault.outputs.keyVaultName
-//   }
-// }
+module cosmos 'cosmos-db/main.bicep' = {
+  name: 'cosmos-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    cosmosAccountId: '${appName}-db'
+    location: location
+    cosmosDbName: appName
+    keyVaultName: keyvault.outputs.keyVaultName
+  }
+}
 
 // module azureFunctions_api 'function-app/main.bicep' = {
 //   name: 'functions-app-deployment-api'
@@ -137,7 +137,8 @@ module keyvault 'keyvault/main.bicep' = {
 //   }
 //   dependsOn: [
 //     keyvault
-//     paxConnectExporter
+//     msi
+//     cosmos
 //   ]
 // }
 
