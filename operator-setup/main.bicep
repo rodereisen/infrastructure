@@ -39,17 +39,17 @@ resource roledefinition_deploymentOperator 'Microsoft.Authorization/roleDefiniti
   }
 }
 
-// var roleAssignmentName = guid(resourceGroup().id, roledefinition_deploymentOperator.id, operatorPrincipalId, appName)
+var roleAssignmentName = guid(resourceGroup().id, roledefinition_deploymentOperator.id, operatorPrincipalId, appName)
 
-// // assigns the role definition above to the user who will perform the deployment.
-// resource keyvault_roleAssignment_deploymentOperator 'Microsoft.Authorization/roleAssignments@2020-08-01-preview' = {
-//   name: roleAssignmentName
-//   scope: resourceGroup()
-//   properties: {
-//     roleDefinitionId: roledefinition_deploymentOperator.id
-//     principalId: operatorPrincipalId
-//   }
-// }
+// assigns the role definition above to the user who will perform the deployment.
+resource keyvault_roleAssignment_deploymentOperator 'Microsoft.Authorization/roleAssignments@2020-08-01-preview' = {
+  name: roleAssignmentName
+  scope: resourceGroup()
+  properties: {
+    roleDefinitionId: roledefinition_deploymentOperator.id
+    principalId: operatorPrincipalId
+  }
+}
 
 output roleId string = roledefinition_deploymentOperator.id
 output roleName string = roledefinition_deploymentOperator.name
