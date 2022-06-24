@@ -20,12 +20,18 @@ param token string
 #disable-next-line no-unused-params
 param mscid string
 
+@minLength(2)
+@maxLength(100)
 @description('This is the object id of the user who will do the deployment on Azure. Can be your user id on AAD. Discover it running [az ad signed-in-user show] and get the [objectId] property.')
+#disable-next-line no-unused-params
 param deploymentOperatorId string
 
 // Variables
+#disable-next-line no-unused-params
 var azureStaticWebAppName = 'black-pebble-0f29bd703.azurestaticapps.net'
+#disable-next-line no-unused-params
 var ipv4 = '5.175.14.35'
+#disable-next-line no-unused-params
 var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 
 // Setting target scope
@@ -38,6 +44,7 @@ resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-website'
   location: location
 }
+
 // module website './website/main.bicep' = {
 //   name: '${prefix}-website'
 //   scope: websiteRg
@@ -54,72 +61,70 @@ resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   location: location
 }
 
-module rodereisenDeDomain './domains/main.bicep' = {
-  name: 'rodereisenDeDomain'
-  scope: domainsRg
-  params: {
-    azureStaticWebAppName: azureStaticWebAppName
-    // azureStaticWebAppName: website.outputs.siteUrl
-    // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
-    mscid: mscid
-    domainName: 'rodereisen'
-    ipv4: ipv4
-    ipv6: ipv6
-    topLevelDomainName: 'de'
-  }
-}
+// module rodereisenDeDomain './domains/main.bicep' = {
+//   name: 'rodereisenDeDomain'
+//   scope: domainsRg
+//   params: {
+//     azureStaticWebAppName: azureStaticWebAppName
+//     // azureStaticWebAppName: website.outputs.siteUrl
+//     // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
+//     mscid: mscid
+//     domainName: 'rodereisen'
+//     ipv4: ipv4
+//     ipv6: ipv6
+//     topLevelDomainName: 'de'
+//   }
+// }
 
 //// Paxconnect Exporter
-param appName string = 'paxConnectExporter'
-param tenantId string = tenant().tenantId
+// param appName string = 'paxConnectExporter'
+// param tenantId string = tenant().tenantId
 
-resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-paxconnect-exporter'
-  location: location
-}
+// resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+//   name: '${prefix}-paxconnect-exporter'
+//   location: location
+// }
 
-module operatorSetup 'operator-setup/main.bicep' = {
-  name: 'operatorSetup-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    operatorPrincipalId: deploymentOperatorId
-    appName: appName
-  }
-}
+// module operatorSetup 'operator-setup/main.bicep' = {
+//   name: 'operatorSetup-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     operatorPrincipalId: deploymentOperatorId
+//     appName: appName
+//   }
+// }
 
-module msi 'msi/main.bicep' = {
-  name: 'msi-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    location: location
-    managedIdentityName: '${prefix}Identity'
-    operatorRoleDefinitionId: operatorSetup.outputs.roleId
-  }
-}
+// module msi 'msi/main.bicep' = {
+//   name: 'msi-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     location: location
+//     managedIdentityName: '${prefix}Identity'
+//     operatorRoleDefinitionId: operatorSetup.outputs.roleId
+//   }
+// }
 
-// creates a key vault in this resource group
-module keyvault 'keyvault/main.bicep' = {
-  name: 'keyvault-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    location: location
-    appName: appName
-    tenantId: tenantId
-  }
-}
+// module keyvault 'keyvault/main.bicep' = {
+//   name: 'keyvault-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     location: location
+//     appName: appName
+//     tenantId: tenantId
+//   }
+// }
 
-module cosmos 'cosmos-db/main.bicep' = {
-  name: 'cosmos-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    cosmosAccountId: '${appName}-db'
-    location: location
-    cosmosDbName: appName
-    keyVaultName: keyvault.outputs.keyVaultName
-  }
-}
+// module cosmos 'cosmos-db/main.bicep' = {
+//   name: 'cosmos-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     cosmosAccountId: '${appName}-db'
+//     location: location
+//     cosmosDbName: appName
+//     keyVaultName: keyvault.outputs.keyVaultName
+//   }
+// }
 
-// creates an azure function, with secrets stored in the key vault
 // module azureFunctions_api 'function-app/main.bicep' = {
 //   name: 'functions-app-deployment-api'
 //   scope: paxConnectExporterRg
