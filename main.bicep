@@ -84,7 +84,7 @@ param tenantId string = tenant().tenantId
 param paxLocation string = 'westgermany'
 
 resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-paxconnect-exporter'
+  name: '${prefix}-paxconnect-exporter-${salt}'
   location: paxLocation
 }
 
