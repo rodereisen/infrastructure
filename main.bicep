@@ -97,7 +97,7 @@ module operatorSetup 'operator-setup/main.bicep' = {
   }
 }
 
-var managedIdentityName = '${prefix}-msi-${appSuffix}'
+var managedIdentityName = 'msi-${appSuffix}'
 module msi 'msi/main.bicep' = {
   name: 'msi-deployment'
   scope: paxConnectExporterRg
@@ -122,7 +122,7 @@ module cosmos 'cosmos-db/main.bicep' = {
   name: 'cosmos-deployment'
   scope: paxConnectExporterRg
   params: {
-    cosmosAccountId: '${appName}-db'
+    cosmosAccountId: 'db-${appName}-${appSuffix}'
     location: paxLocation
     cosmosDbName: appName
     keyVaultName: keyvault.outputs.keyVaultName
