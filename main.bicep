@@ -34,7 +34,7 @@ var ipv4 = '5.175.14.35'
 var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 
 // Setting target scope
-targetScope = 'subscription'
+targetScope = 'subscription' // a 4-char suffix to add to the various names of azure resources to help them be unique, but still, previsible
 
 // Resources
 
