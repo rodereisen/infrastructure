@@ -24,7 +24,7 @@ param deploymentDate string = utcNow()
 
 // param appNameSuffix string
 
-// var functionAppName = 'func-${appName}-${appInternalServiceName}'
+var functionAppName = 'func-${appName}-${appInternalServiceName}'
 var appServiceName = 'as-${appName}${appInternalServiceName}'
 
 // remove dashes for storage account name
@@ -33,6 +33,7 @@ var storageAccountName = toLower(format('st{0}', replace('${appInternalServiceNa
 var appTags = {
   AppID: '${appName}-${appInternalServiceName}'
   AppName: '${appName}-${appInternalServiceName}'
+  deploymentDate: '${appName}-${appInternalServiceName}'
 }
 
 // Storage Account - I am using 1 storage account for each function. It would be potentially shared across many function apps.
@@ -115,73 +116,65 @@ resource appService 'Microsoft.Web/serverfarms@2020-12-01' = {
 }
 
 // Function App
-// resource functionApp 'Microsoft.Web/sites@2020-12-01' = {
-//   name: functionAppName
-//   location: location
-//   identity: {
-//     type: 'SystemAssigned, UserAssigned'
-//     userAssignedIdentities: {
-//       '${msiRbacId}': {}
-//     }
-//   }
-//   kind: 'functionapp'
-//   properties: {
-//     keyVaultReferenceIdentity: msiRbacId
-//     enabled: true
-//     hostNameSslStates: [
-//       {
-//         name: '${functionAppName}.azurewebsites.net'
-//         sslState: 'Disabled'
-//         hostType: 'Standard'
-//       }
-//       {
-//         name: '${functionAppName}.scm.azurewebsites.net'
-//         sslState: 'Disabled'
-//         hostType: 'Standard'
-//       }
-//     ]
-//     serverFarmId: appService.id
-//     siteConfig: {
-//       appSettings: [
-//         {
-//           name: 'AzureWebJobsStorage'
-//           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
-//         }
-//         {
-//           name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
-//           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
-//         }
-//         {
-//           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-//           value: appInsightsInstrumentationKey
-//         }
-//         {
-//           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-//           value: 'InstrumentationKey=${appInsightsInstrumentationKey}'
-//         }
-//         {
-//           name: 'FUNCTIONS_WORKER_RUNTIME'
-//           value: functionRuntime
-//         }
-//         {
-//           name: 'FUNCTIONS_EXTENSION_VERSION'
-//           value: '~3'
-//         }
-//         {
-//           name: 'CosmosDbConnectionString'
-//           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=CosmosDbConnectionString)'
-//         }
-//       ]
-//       use32BitWorkerProcess: true
-//     }
-//     scmSiteAlsoStopped: false
-//     clientAffinityEnabled: false
-//     clientCertEnabled: false
-//     hostNamesDisabled: false
-//     dailyMemoryTimeQuota: 0
-//     httpsOnly: false
-//     redundancyMode: 'None'
+resource functionApp 'Microsoft.Web/sites@2020-12-01' = {
+  name: functionAppName
+  location: location
+  identity: {
+    type: 'SystemAssigned, UserAssigned'
+    userAssignedIdentities: {
+      '${msiRbacId}': {}
+    }
+  }
+  kind: 'functionapp'
+  properties: {
+    keyVaultReferenceIdentity: msiRbacId
+    enabled: true
+    hostNameSslStates: [
+      {
+        name: '${functionAppName}.azurewebsites.net'
+        sslState: 'Disabled'
+        hostType: 'Standard'
+      }
+      {
+        name: '${functionAppName}.scm.azurewebsites.net'
+        sslState: 'Disabled'
+        hostType: 'Standard'
+      }
+    ]
+    serverFarmId: appService.id
+    siteConfig: {
+      appSettings: [
+        {
+          name: 'AzureWebJobsStorage'
+          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
+        }
+        {
+          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
+        }
+        {
+          name: 'FUNCTIONS_WORKER_RUNTIME'
+          value: functionRuntime
+        }
+        {
+          name: 'FUNCTIONS_EXTENSION_VERSION'
+          value: '~3'
+        }
+        {
+          name: 'CosmosDbConnectionString'
+          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=CosmosDbConnectionString)'
+        }
+      ]
+      use32BitWorkerProcess: true
+    }
+    scmSiteAlsoStopped: false
+    clientAffinityEnabled: false
+    clientCertEnabled: false
+    hostNamesDisabled: false
+    dailyMemoryTimeQuota: 0
+    httpsOnly: false
+    redundancyMode: 'None'
 
-//   }
-//   tags: appTags
-// }
+  }
+  tags: appTags
+}
