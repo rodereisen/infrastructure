@@ -20,6 +20,9 @@ param token string
 #disable-next-line no-unused-params
 param mscid string
 
+@description('This is the object id of the user who will do the deployment on Azure. Can be your user id on AAD. Discover it running [az ad signed-in-user show] and get the [objectId] property.')
+param deploymentOperatorId string
+
 // Variables
 var azureStaticWebAppName = 'black-pebble-0f29bd703.azurestaticapps.net'
 var ipv4 = '5.175.14.35'
@@ -65,3 +68,80 @@ module rodereisenDeDomain './domains/main.bicep' = {
     topLevelDomainName: 'de'
   }
 }
+
+//// Paxconnect Exporter
+param appName string = 'paxConnectExporter'
+param tenantId string = tenant().tenantId
+
+resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: '${prefix}-paxconnect-exporter'
+  location: location
+}
+
+module operatorSetup 'operator-setup/main.bicep' = {
+  name: 'operatorSetup-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    operatorPrincipalId: deploymentOperatorId
+    appName: appName
+  }
+}
+
+module msi 'msi/main.bicep' = {
+  name: 'msi-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    location: location
+    managedIdentityName: '${prefix}Identity'
+    operatorRoleDefinitionId: operatorSetup.outputs.roleId
+  }
+}
+
+// creates a key vault in this resource group
+module keyvault 'keyvault/main.bicep' = {
+  name: 'keyvault-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    location: location
+    appName: appName
+    tenantId: tenantId
+  }
+}
+
+module cosmos 'cosmos-db/main.bicep' = {
+  name: 'cosmos-deployment'
+  scope: paxConnectExporterRg
+  params: {
+    cosmosAccountId: '${appName}-db'
+    location: location
+    cosmosDbName: appName
+    keyVaultName: keyvault.outputs.keyVaultName
+  }
+}
+
+// creates an azure function, with secrets stored in the key vault
+// module azureFunctions_api 'function-app/main.bicep' = {
+//   name: 'functions-app-deployment-api'
+//   scope: paxConnectExporterRg
+//   params: {
+//     appName: appName
+//     appInternalServiceName: 'api'
+//     appNameSuffix: appSuffix
+//     appInsightsInstrumentationKey: logAnalytics.outputs.instrumentationKey
+//     keyVaultName: keyvault.outputs.keyVaultName
+//     msiRbacId: msi.outputs.id
+//   }
+//   dependsOn: [
+//     keyvault
+//     paxConnectExporter
+//   ]
+// }
+
+// module paxConnectExporter './paxconnect-exporter/main.bicep' = {
+//   name: 'pax-connect-exporter'
+//   scope: paxConnectExporterRg
+//   params: {
+//     prefix: prefix
+//     location: location
+//   }
+// }
