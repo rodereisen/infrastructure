@@ -22,7 +22,6 @@ param mscid string
 
 @minLength(2)
 @maxLength(100)
-@description('This is the object id of the user who will do the deployment on Azure. Can be your user id on AAD. Discover it running [az ad signed-in-user show] and get the [objectId] property.')
 #disable-next-line no-unused-params
 param deploymentOperatorId string
 
@@ -78,7 +77,7 @@ module rodereisenDeDomain './domains/main.bicep' = {
 
 //// Paxconnect Exporter
 param appName string = 'paxConnectExporter'
-// param tenantId string = tenant().tenantId
+param tenantId string = tenant().tenantId
 
 resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-paxconnect-exporter'
