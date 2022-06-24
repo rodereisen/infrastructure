@@ -3,7 +3,6 @@
 // and application insights.
 
 // note: https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
-
 param location string = resourceGroup().location
 param functionRuntime string = 'dotnet'
 
@@ -19,18 +18,18 @@ param keyVaultName string
 @description('User-assigned managed identity that will be attached to this function and will have power to connect to different resources.')
 param msiRbacId string
 
-@description('Application insights instrumentation key.')
-param appInsightsInstrumentationKey string
+// @description('Application insights instrumentation key.')
+// param appInsightsInstrumentationKey string
 
 param deploymentDate string = utcNow()
 
-param appNameSuffix string
+// param appNameSuffix string
 
-var functionAppName = 'func-${appName}-${appInternalServiceName}-${appNameSuffix}'
-var appServiceName = 'ASP-${appName}${appInternalServiceName}-${appNameSuffix}'
+// var functionAppName = 'func-${appName}-${appInternalServiceName}'
+var appServiceName = 'as-${appName}${appInternalServiceName}'
 
 // remove dashes for storage account name
-var storageAccountName = toLower(format('st{0}', replace('${appInternalServiceName}-${appNameSuffix}', '-', '')))
+var storageAccountName = toLower(format('st{0}', replace('${appInternalServiceName}', '-', '')))
 
 var appTags = {
   AppID: '${appName}-${appInternalServiceName}'
@@ -117,73 +116,73 @@ resource appService 'Microsoft.Web/serverfarms@2020-12-01' = {
 }
 
 // Function App
-resource functionApp 'Microsoft.Web/sites@2020-12-01' = {
-  name: functionAppName
-  location: location
-  identity: {
-    type: 'SystemAssigned, UserAssigned'
-    userAssignedIdentities: {
-      '${msiRbacId}': {}
-    }
-  }
-  kind: 'functionapp'
-  properties: {
-    keyVaultReferenceIdentity: msiRbacId
-    enabled: true
-    hostNameSslStates: [
-      {
-        name: '${functionAppName}.azurewebsites.net'
-        sslState: 'Disabled'
-        hostType: 'Standard'
-      }
-      {
-        name: '${functionAppName}.scm.azurewebsites.net'
-        sslState: 'Disabled'
-        hostType: 'Standard'
-      }
-    ]
-    serverFarmId: appService.id
-    siteConfig: {
-      appSettings: [
-        {
-          name: 'AzureWebJobsStorage'
-          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
-        }
-        {
-          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
-          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
-        }
-        {
-          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: appInsightsInstrumentationKey
-        }
-        {
-          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-          value: 'InstrumentationKey=${appInsightsInstrumentationKey}'
-        }
-        {
-          name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: functionRuntime
-        }
-        {
-          name: 'FUNCTIONS_EXTENSION_VERSION'
-          value: '~3'
-        }
-        {
-          name: 'CosmosDbConnectionString'
-          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=CosmosDbConnectionString)'
-        }
-      ]
-      use32BitWorkerProcess: true
-    }
-    scmSiteAlsoStopped: false
-    clientAffinityEnabled: false
-    clientCertEnabled: false
-    hostNamesDisabled: false
-    dailyMemoryTimeQuota: 0
-    httpsOnly: false
-    redundancyMode: 'None'
+// resource functionApp 'Microsoft.Web/sites@2020-12-01' = {
+//   name: functionAppName
+//   location: location
+//   identity: {
+//     type: 'SystemAssigned, UserAssigned'
+//     userAssignedIdentities: {
+//       '${msiRbacId}': {}
+//     }
+//   }
+//   kind: 'functionapp'
+//   properties: {
+//     keyVaultReferenceIdentity: msiRbacId
+//     enabled: true
+//     hostNameSslStates: [
+//       {
+//         name: '${functionAppName}.azurewebsites.net'
+//         sslState: 'Disabled'
+//         hostType: 'Standard'
+//       }
+//       {
+//         name: '${functionAppName}.scm.azurewebsites.net'
+//         sslState: 'Disabled'
+//         hostType: 'Standard'
+//       }
+//     ]
+//     serverFarmId: appService.id
+//     siteConfig: {
+//       appSettings: [
+//         {
+//           name: 'AzureWebJobsStorage'
+//           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
+//         }
+//         {
+//           name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+//           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
+//         }
+//         {
+//           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+//           value: appInsightsInstrumentationKey
+//         }
+//         {
+//           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+//           value: 'InstrumentationKey=${appInsightsInstrumentationKey}'
+//         }
+//         {
+//           name: 'FUNCTIONS_WORKER_RUNTIME'
+//           value: functionRuntime
+//         }
+//         {
+//           name: 'FUNCTIONS_EXTENSION_VERSION'
+//           value: '~3'
+//         }
+//         {
+//           name: 'CosmosDbConnectionString'
+//           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=CosmosDbConnectionString)'
+//         }
+//       ]
+//       use32BitWorkerProcess: true
+//     }
+//     scmSiteAlsoStopped: false
+//     clientAffinityEnabled: false
+//     clientCertEnabled: false
+//     hostNamesDisabled: false
+//     dailyMemoryTimeQuota: 0
+//     httpsOnly: false
+//     redundancyMode: 'None'
 
-  }
-  tags: appTags
-}
+//   }
+//   tags: appTags
+// }

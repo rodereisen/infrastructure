@@ -124,23 +124,22 @@ module cosmos 'cosmos-db/main.bicep' = {
   }
 }
 
-// module azureFunctions_api 'function-app/main.bicep' = {
-//   name: 'functions-app-deployment-api'
-//   scope: paxConnectExporterRg
-//   params: {
-//     appName: appName
-//     appInternalServiceName: 'api'
-//     appNameSuffix: appSuffix
-//     appInsightsInstrumentationKey: logAnalytics.outputs.instrumentationKey
-//     keyVaultName: keyvault.outputs.keyVaultName
-//     msiRbacId: msi.outputs.id
-//   }
-//   dependsOn: [
-//     keyvault
-//     msi
-//     cosmos
-//   ]
-// }
+module azureFunctions_api 'function-app/main.bicep' = {
+  name: 'functions-app-deployment-api'
+  scope: paxConnectExporterRg
+  params: {
+    appName: appName
+    location: location
+    appInternalServiceName: 'api'
+    keyVaultName: keyvault.outputs.keyVaultName
+    msiRbacId: msi.outputs.id
+  }
+  dependsOn: [
+    keyvault
+    msi
+    cosmos
+  ]
+}
 
 // module paxConnectExporter './paxconnect-exporter/main.bicep' = {
 //   name: 'pax-connect-exporter'
