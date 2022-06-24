@@ -81,7 +81,7 @@ module rodereisenDeDomain './domains/main.bicep' = {
 param appName string = 'paxconnect-exporter'
 param tenantId string = tenant().tenantId
 
-param paxLocation string = 'swedencentral'
+param paxLocation string = 'switzerlandnorth'
 
 resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-paxconnect-exporter-${substring(uniqueString('${paxLocation}${salt}'), 0, 5)}'
