@@ -37,6 +37,8 @@ var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 targetScope = 'subscription' // a 4-char suffix to add to the various names of azure resources to help them be unique, but still, previsible
 
 // Resources
+var salt = '1'
+var appSuffix = substring(uniqueString('${paxConnectExporterRg.id}${salt}'), 0, 5)
 
 //// Website
 resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
@@ -79,9 +81,11 @@ module rodereisenDeDomain './domains/main.bicep' = {
 param appName string = 'paxconnect-exporter'
 param tenantId string = tenant().tenantId
 
+param paxLocation string = 'westgermany'
+
 resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-paxconnect-exporter'
-  location: location
+  location: paxLocation
 }
 
 module operatorSetup 'operator-setup/main.bicep' = {
@@ -97,7 +101,7 @@ module msi 'msi/main.bicep' = {
   name: 'msi-deployment'
   scope: paxConnectExporterRg
   params: {
-    location: location
+    location: paxLocation
     managedIdentityName: '${prefix}Identity'
     operatorRoleDefinitionId: operatorSetup.outputs.roleId
   }
@@ -107,9 +111,10 @@ module keyvault 'keyvault/main.bicep' = {
   name: 'keyvault-deployment'
   scope: paxConnectExporterRg
   params: {
-    location: location
+    location: paxLocation
     appName: appName
     tenantId: tenantId
+    appSuffix: appSuffix
   }
 }
 
@@ -118,7 +123,7 @@ module cosmos 'cosmos-db/main.bicep' = {
   scope: paxConnectExporterRg
   params: {
     cosmosAccountId: '${appName}-db'
-    location: location
+    location: paxLocation
     cosmosDbName: appName
     keyVaultName: keyvault.outputs.keyVaultName
   }
@@ -129,7 +134,7 @@ module azureFunctions_api 'function-app/main.bicep' = {
   scope: paxConnectExporterRg
   params: {
     appName: appName
-    location: location
+    location: paxLocation
     appInternalServiceName: 'api'
     keyVaultName: keyvault.outputs.keyVaultName
     msiRbacId: msi.outputs.id
@@ -146,6 +151,6 @@ module azureFunctions_api 'function-app/main.bicep' = {
 //   scope: paxConnectExporterRg
 //   params: {
 //     prefix: prefix
-//     location: location
+//     location: paxLocation
 //   }
 // }

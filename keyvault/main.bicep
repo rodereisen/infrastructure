@@ -10,12 +10,12 @@ param enabledForDiskEncryption bool = true
 param enableRbacAuthorization bool = true
 param softDeleteRetentionInDays int = 90
 
+param appSuffix string = substring(uniqueString(resourceGroup().id), 0, 4)
+
 param networkAcls object = {
   ipRules: []
   virtualNetworkRules: []
 }
-
-var appSuffix = substring(uniqueString(resourceGroup().id), 0, 4)
 
 resource keyvault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
   name: 'kv-${appSuffix}'
