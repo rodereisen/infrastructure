@@ -37,7 +37,7 @@ var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 targetScope = 'subscription' // a 4-char suffix to add to the various names of azure resources to help them be unique, but still, previsible
 
 // Resources
-var salt = 4
+var salt = 5
 var appSuffix = substring(uniqueString('${paxConnectExporterRg.id}${salt}'), 0, 5)
 
 //// Website
@@ -81,11 +81,9 @@ module rodereisenDeDomain './domains/main.bicep' = {
 param appName string = 'paxconnect-exporter'
 param tenantId string = tenant().tenantId
 
-param paxLocation string = 'switzerlandnorth'
-
 resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-paxconnect-exporter-${substring(uniqueString('${paxLocation}${salt}'), 0, 5)}'
-  location: paxLocation
+  name: '${prefix}-paxconnect-exporter-${substring(uniqueString('${location}${salt}'), 0, 5)}'
+  location: location
 }
 
 module operatorSetup 'operator-setup/main.bicep' = {
@@ -102,7 +100,7 @@ module msi 'msi/main.bicep' = {
   name: 'msi-deployment'
   scope: paxConnectExporterRg
   params: {
-    location: paxLocation
+    location: location
     managedIdentityName: managedIdentityName
     operatorRoleDefinitionId: operatorSetup.outputs.roleId
   }
@@ -112,7 +110,7 @@ module keyvault 'keyvault/main.bicep' = {
   name: 'keyvault-deployment'
   scope: paxConnectExporterRg
   params: {
-    location: paxLocation
+    location: location
     appName: 'pe-${appSuffix}'
     tenantId: tenantId
   }
@@ -123,7 +121,7 @@ module cosmos 'cosmos-db/main.bicep' = {
   scope: paxConnectExporterRg
   params: {
     cosmosAccountId: 'db-${appName}-${appSuffix}'
-    location: paxLocation
+    location: location
     cosmosDbName: appName
     keyVaultName: keyvault.outputs.keyVaultName
   }
@@ -134,7 +132,7 @@ module azureFunctions_api 'function-app/main.bicep' = {
   scope: paxConnectExporterRg
   params: {
     appName: appName
-    location: paxLocation
+    location: location
     appInternalServiceName: 'api-${appSuffix}'
     keyVaultName: keyvault.outputs.keyVaultName
     msiRbacId: msi.outputs.id
@@ -151,6 +149,6 @@ module azureFunctions_api 'function-app/main.bicep' = {
 //   scope: paxConnectExporterRg
 //   params: {
 //     prefix: prefix
-//     location: paxLocation
+//     location: location
 //   }
 // }
