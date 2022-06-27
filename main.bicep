@@ -78,33 +78,33 @@ module rodereisenDeDomain './domains/main.bicep' = {
 }
 
 //// Paxconnect Exporter
-param appName string = 'paxconnect-exporter'
-param tenantId string = tenant().tenantId
+// param appName string = 'paxconnect-exporter'
+// param tenantId string = tenant().tenantId
 
-resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: '${prefix}-paxconnect-exporter-${substring(uniqueString('${location}${salt}'), 0, 5)}'
-  location: location
-}
+// resource paxConnectExporterRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+//   name: '${prefix}-paxconnect-exporter-${substring(uniqueString('${location}${salt}'), 0, 5)}'
+//   location: location
+// }
 
-module operatorSetup 'operator-setup/main.bicep' = {
-  name: 'operatorSetup-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    operatorPrincipalId: deploymentOperatorId
-    appName: appName
-  }
-}
+// module operatorSetup 'operator-setup/main.bicep' = {
+//   name: 'operatorSetup-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     operatorPrincipalId: deploymentOperatorId
+//     appName: appName
+//   }
+// }
 
-var managedIdentityName = 'msi-${appSuffix}'
-module msi 'msi/main.bicep' = {
-  name: 'msi-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    location: location
-    managedIdentityName: managedIdentityName
-    operatorRoleDefinitionId: operatorSetup.outputs.roleId
-  }
-}
+// var managedIdentityName = 'msi-${appSuffix}'
+// module msi 'msi/main.bicep' = {
+//   name: 'msi-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     location: location
+//     managedIdentityName: managedIdentityName
+//     operatorRoleDefinitionId: operatorSetup.outputs.roleId
+//   }
+// }
 
 // module keyvault 'keyvault/main.bicep' = {
 //   name: 'keyvault-deployment'
@@ -127,22 +127,22 @@ module msi 'msi/main.bicep' = {
 //   }
 // }
 
-module azureFunctions_api 'function-app/main.bicep' = {
-  name: 'func-api-${appSuffix}'
-  scope: paxConnectExporterRg
-  params: {
-    appName: appName
-    location: location
-    appInternalServiceName: 'api-${appSuffix}'
-    // keyVaultName: keyvault.outputs.keyVaultName
-    msiRbacId: msi.outputs.id
-  }
-  dependsOn: [
-    // keyvault
-    msi
-    // cosmos
-  ]
-}
+// module azureFunctions_api 'function-app/main.bicep' = {
+//   name: 'func-api-${appSuffix}'
+//   scope: paxConnectExporterRg
+//   params: {
+//     appName: appName
+//     location: location
+//     appInternalServiceName: 'api-${appSuffix}'
+//     // keyVaultName: keyvault.outputs.keyVaultName
+//     msiRbacId: msi.outputs.id
+//   }
+//   dependsOn: [
+//     // keyvault
+//     msi
+//     // cosmos
+//   ]
+// }
 
 // module paxConnectExporter './paxconnect-exporter/main.bicep' = {
 //   name: 'pax-connect-exporter'
