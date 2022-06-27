@@ -36,10 +36,6 @@ var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 // Setting target scope
 targetScope = 'subscription' // a 4-char suffix to add to the various names of azure resources to help them be unique, but still, previsible
 
-// Resources
-var salt = 5
-var appSuffix = substring(uniqueString('${paxConnectExporterRg.id}${salt}'), 0, 5)
-
 //// Website
 resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-website'
@@ -78,6 +74,8 @@ module rodereisenDeDomain './domains/main.bicep' = {
 }
 
 //// Paxconnect Exporter
+// var salt = 5
+// var appSuffix = substring(uniqueString('${paxConnectExporterRg.id}${salt}'), 0, 5)
 // param appName string = 'paxconnect-exporter'
 // param tenantId string = tenant().tenantId
 
