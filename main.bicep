@@ -106,26 +106,26 @@ module msi 'msi/main.bicep' = {
   }
 }
 
-module keyvault 'keyvault/main.bicep' = {
-  name: 'keyvault-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    location: location
-    appName: 'pe-${appSuffix}'
-    tenantId: tenantId
-  }
-}
+// module keyvault 'keyvault/main.bicep' = {
+//   name: 'keyvault-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     location: location
+//     appName: 'pe-${appSuffix}'
+//     tenantId: tenantId
+//   }
+// }
 
-module cosmos 'cosmos-db/main.bicep' = {
-  name: 'cosmos-deployment'
-  scope: paxConnectExporterRg
-  params: {
-    cosmosAccountId: 'db-${appName}-${appSuffix}'
-    location: location
-    cosmosDbName: appName
-    keyVaultName: keyvault.outputs.keyVaultName
-  }
-}
+// module cosmos 'cosmos-db/main.bicep' = {
+//   name: 'cosmos-deployment'
+//   scope: paxConnectExporterRg
+//   params: {
+//     cosmosAccountId: 'db-${appName}-${appSuffix}'
+//     location: location
+//     cosmosDbName: appName
+//     keyVaultName: keyvault.outputs.keyVaultName
+//   }
+// }
 
 module azureFunctions_api 'function-app/main.bicep' = {
   name: 'func-api-${appSuffix}'
@@ -134,13 +134,13 @@ module azureFunctions_api 'function-app/main.bicep' = {
     appName: appName
     location: location
     appInternalServiceName: 'api-${appSuffix}'
-    keyVaultName: keyvault.outputs.keyVaultName
+    // keyVaultName: keyvault.outputs.keyVaultName
     msiRbacId: msi.outputs.id
   }
   dependsOn: [
-    keyvault
+    // keyvault
     msi
-    cosmos
+    // cosmos
   ]
 }
 

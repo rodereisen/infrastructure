@@ -13,8 +13,8 @@ param appName string
 @description('The name of the role or service of this function. Example: Api CommandHandler, EventHandler')
 param appInternalServiceName string
 
-@description('Id of a existing keyvault that will be used to store and retrieve keys in this deployment')
-param keyVaultName string
+// @description('Id of a existing keyvault that will be used to store and retrieve keys in this deployment')
+// param keyVaultName string
 
 @description('User-assigned managed identity that will be attached to this function and will have power to connect to different resources.')
 #disable-next-line no-unused-params
@@ -81,19 +81,19 @@ resource blobServices 'Microsoft.Storage/storageAccounts/blobServices@2019-06-01
   }
 }
 
-resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' existing = {
-  name: keyVaultName
-  scope: resourceGroup()
-}
+// resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' existing = {
+//   name: keyVaultName
+//   scope: resourceGroup()
+// }
 
-module setStorageAccountSecret '../set-secret/main.bicep' = {
-  name: 'stgSecret-${appInternalServiceName}-${deploymentDate}'
-  params: {
-    keyVaultName: keyVault.name
-    secretName: '${storageAccount.name}-${appInternalServiceName}-ConnectionString'
-    secretValue: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
-  }
-}
+// module setStorageAccountSecret '../set-secret/main.bicep' = {
+//   name: 'stgSecret-${appInternalServiceName}-${deploymentDate}'
+//   params: {
+//     keyVaultName: keyVault.name
+//     secretName: '${storageAccount.name}-${appInternalServiceName}-ConnectionString'
+//     secretValue: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+//   }
+// }
 
 // App Service
 resource appService 'Microsoft.Web/serverfarms@2020-12-01' = {
@@ -144,14 +144,14 @@ resource functionApp 'Microsoft.Web/sites@2020-12-01' = {
     serverFarmId: appService.id
     siteConfig: {
       appSettings: [
-        {
-          name: 'AzureWebJobsStorage'
-          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
-        }
-        {
-          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
-          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
-        }
+        // {
+        //   name: 'AzureWebJobsStorage'
+        //   value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
+        // }
+        // {
+        //   name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+        //   value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${storageAccount.name}-${appInternalServiceName}-ConnectionString)'
+        // }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: functionRuntime
@@ -160,10 +160,10 @@ resource functionApp 'Microsoft.Web/sites@2020-12-01' = {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~3'
         }
-        {
-          name: 'CosmosDbConnectionString'
-          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=CosmosDbConnectionString)'
-        }
+        // {
+        //   name: 'CosmosDbConnectionString'
+        //   value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=CosmosDbConnectionString)'
+        // }
       ]
       use32BitWorkerProcess: true
     }
