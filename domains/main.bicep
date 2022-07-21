@@ -250,8 +250,36 @@ resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
     ]
   }
 }
+resource srvSip2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
+  name: '${dnszone.name}/sip._tls'
+  properties: {
+    TTL: ttl
+    SRVRecords: [
+      {
+        port: 443
+        priority: 100
+        target: 'sipdir.online.lync.com'
+        weight: 1
+      }
+    ]
+  }
+}
 resource srvSipFederation 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
   name: '${dnszone.name}/_sipfederationtls._tcp'
+  properties: {
+    TTL: ttl
+    SRVRecords: [
+      {
+        port: 5061
+        priority: 100
+        target: 'sipfed.online.lync.com'
+        weight: 1
+      }
+    ]
+  }
+}
+resource srvSipFederation2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
+  name: '${dnszone.name}/sipfederationtls._tcp'
   properties: {
     TTL: ttl
     SRVRecords: [
