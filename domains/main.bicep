@@ -40,7 +40,8 @@ resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
   }
 }
 resource apex 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '.${domainName}.${topLevelDomainName}'
+  name: ''
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
