@@ -36,7 +36,6 @@ param azureStaticWebAppName string
 // @minLength(2)
 // @maxLength(100)
 // param azureStaticWebAppToken string
-
 // Variables
 var ttl = 600
 
@@ -48,36 +47,16 @@ resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
     zoneType: 'Public'
   }
 }
-
-// A Records
-resource homeDomain 'Microsoft.Network/dnszones/A@2018-05-01' = {
+resource home 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: '${dnszone.name}/@'
   properties: {
     TTL: ttl
-    ARecords: [
-      {
-        ipv4Address: ipv4
-      }
-    ]
+    CNAMERecord: {
+      cname: azureStaticWebAppName
+    }
     targetResource: {}
   }
 }
-
-// AAAA Records
-resource homeDomain6 'Microsoft.Network/dnszones/AAAA@2018-05-01' = {
-  name: '${dnszone.name}/@'
-  properties: {
-    TTL: ttl
-    AAAARecords: [
-      {
-        ipv6Address: ipv6
-      }
-    ]
-    targetResource: {}
-  }
-}
-
-// CNAME Records
 resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: '${dnszone.name}/www'
   properties: {
