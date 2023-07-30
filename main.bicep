@@ -65,6 +65,26 @@ module rodereisenDeDomain './domains/main.bicep' = {
     topLevelDomainName: 'de'
   }
 }
+module reisebuerorodeDeDomain './domains/main.bicep' = {
+  name: 'reisebuerorodeDeDomain'
+  scope: domainsRg
+  params: {
+    azureStaticWebAppName: azureStaticWebAppName
+    mscid: mscid
+    domainName: 'reisebuerorode'
+    topLevelDomainName: 'de'
+  }
+}
+module reisebrorodeDeDomain './domains/main.bicep' = {
+  name: 'reisebrorodeDeDomain'
+  scope: domainsRg
+  params: {
+    azureStaticWebAppName: azureStaticWebAppName
+    mscid: mscid
+    domainName: 'reisebürorode'
+    topLevelDomainName: 'de'
+  }
+}
 
 //// Paxconnect Exporter
 // var salt = 5
