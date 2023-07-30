@@ -164,26 +164,7 @@ resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
     ]
   }
 }
-
 // TXT Records
-// resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
-//   name: '${dnszone.name}/@'
-//   properties: {
-//     TTL: ttl
-//     TXTRecords: [
-//       {
-//         value: [
-//           'mscid=${mscid}'
-//         ]
-//       }
-//       {
-//         value: [
-//           'v=spf1 include:spf.protection.outlook.com -all'
-//         ]
-//       }
-//     ]
-//   }
-// }
 resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
   name: '@'
   parent: dnszone
@@ -220,7 +201,7 @@ resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
   }
 }
 resource srvSip2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
-  name: '$sip._tls'
+  name: 'sip._tls'
   parent: dnszone
   properties: {
     TTL: ttl
