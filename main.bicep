@@ -73,6 +73,36 @@ module rodereisenDeDomain './domains/main.bicep' = {
   }
 }
 
+module reisebuerorodeDeDomain './domains/main.bicep' = {
+  name: 'rodereisenDeDomain'
+  scope: domainsRg
+  params: {
+    azureStaticWebAppName: azureStaticWebAppName
+    // azureStaticWebAppName: website.outputs.siteUrl
+    // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
+    mscid: mscid
+    domainName: 'reisebuerorode'
+    ipv4: ipv4
+    ipv6: ipv6
+    topLevelDomainName: 'de'
+  }
+}
+
+module reisebrorodeDeDomain './domains/main.bicep' = {
+  name: 'rodereisenDeDomain'
+  scope: domainsRg
+  params: {
+    azureStaticWebAppName: azureStaticWebAppName
+    // azureStaticWebAppName: website.outputs.siteUrl
+    // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
+    mscid: mscid
+    domainName: 'reisebürorode'
+    ipv4: ipv4
+    ipv6: ipv6
+    topLevelDomainName: 'de'
+  }
+}
+
 //// Paxconnect Exporter
 // var salt = 5
 // var appSuffix = substring(uniqueString('${paxConnectExporterRg.id}${salt}'), 0, 5)
