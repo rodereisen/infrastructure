@@ -18,14 +18,6 @@ param domainName string
 param topLevelDomainName string
 
 @minLength(2)
-@maxLength(40)
-param ipv4 string
-
-@minLength(2)
-@maxLength(40)
-param ipv6 string
-
-@minLength(2)
 @maxLength(100)
 param mscid string
 

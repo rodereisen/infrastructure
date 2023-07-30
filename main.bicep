@@ -29,9 +29,9 @@ param deploymentOperatorId string
 #disable-next-line no-unused-params
 var azureStaticWebAppName = 'black-pebble-0f29bd703.azurestaticapps.net'
 #disable-next-line no-unused-params
-var ipv4 = '5.175.14.35'
+# var ipv4 = '5.175.14.35'
 #disable-next-line no-unused-params
-var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
+# var ipv6 = '2a01:488:42:1000:50ed:8223:e6:9d2e'
 
 // Setting target scope
 targetScope = 'subscription' // a 4-char suffix to add to the various names of azure resources to help them be unique, but still, previsible
@@ -67,8 +67,6 @@ module rodereisenDeDomain './domains/main.bicep' = {
     // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
     mscid: mscid
     domainName: 'rodereisen'
-    ipv4: ipv4
-    ipv6: ipv6
     topLevelDomainName: 'de'
   }
 }
