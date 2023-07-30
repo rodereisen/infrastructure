@@ -48,7 +48,8 @@ resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
   }
 }
 resource apex 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}'
+  name: '@'
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -144,7 +145,6 @@ resource enterpriseenrollment 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
     targetResource: {}
   }
 }
-
 // MX Records
 // resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
 //   name: '${dnszone.name}/@'
