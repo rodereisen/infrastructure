@@ -48,7 +48,7 @@ resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
   }
 }
 resource apex 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/@'
+  name: '${dnszone.name}'
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -58,7 +58,8 @@ resource apex 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   }
 }
 resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/www'
+  name: 'www'
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -67,8 +68,9 @@ resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
     targetResource: {}
   }
 }
-resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/msoid'
+resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = { 
+  name: 'msoid'
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -88,7 +90,8 @@ resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
 //   }
 // }
 resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/autodiscover'
+  name: 'autodiscover'
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -98,7 +101,8 @@ resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   }
 }
 resource sip 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/sip'
+  name: 'sip' 
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -108,7 +112,8 @@ resource sip 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   }
 }
 resource lyncdiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/lyncdiscover'
+  name: 'lyncdiscover'
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -118,7 +123,8 @@ resource lyncdiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   }
 }
 resource enterpriseregistration 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/enterpriseregistration'
+  name: 'enterpriseregistration'
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -128,7 +134,8 @@ resource enterpriseregistration 'Microsoft.Network/dnszones/CNAME@2018-05-01' = 
   }
 }
 resource enterpriseenrollment 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/enterpriseenrollment'
+  name: 'enterpriseenrollment'
+  parent: dnszone
   properties: {
     TTL: ttl
     CNAMERecord: {
@@ -152,7 +159,8 @@ resource enterpriseenrollment 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
 //   }
 // }
 resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
-  name: '${dnszone.name}/@'
+  name: '@'
+  parent: dnszone
   properties: {
     TTL: ttl
     MXRecords: [
@@ -196,7 +204,8 @@ resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
 //   }
 // }
 resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
-  name: '${dnszone.name}/@'
+  name: '@'
+  parent: dnszone
   properties: {
     TTL: ttl
     TXTRecords: [
@@ -213,10 +222,10 @@ resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
     ]
   }
 }
-
 // SRV Records
 resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
-  name: '${dnszone.name}/_sip._tls'
+  name: '_sip._tls'
+  parent: dnszone
   properties: {
     TTL: ttl
     SRVRecords: [
@@ -230,7 +239,8 @@ resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
   }
 }
 resource srvSip2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
-  name: '${dnszone.name}/sip._tls'
+  name: '$sip._tls'
+  parent: dnszone
   properties: {
     TTL: ttl
     SRVRecords: [
@@ -244,7 +254,8 @@ resource srvSip2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
   }
 }
 resource srvSipFederation 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
-  name: '${dnszone.name}/_sipfederationtls._tcp'
+  name: '_sipfederationtls._tcp'
+  parent: dnszone
   properties: {
     TTL: ttl
     SRVRecords: [
@@ -258,7 +269,8 @@ resource srvSipFederation 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
   }
 }
 resource srvSipFederation2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
-  name: '${dnszone.name}/sipfederationtls._tcp'
+  name: 'sipfederationtls._tcp'
+  parent: dnszone
   properties: {
     TTL: ttl
     SRVRecords: [
