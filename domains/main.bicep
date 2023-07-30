@@ -47,6 +47,16 @@ resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
     zoneType: 'Public'
   }
 }
+resource apex 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+  name: '${dnszone.name}/@'
+  properties: {
+    TTL: ttl
+    CNAMERecord: {
+      cname: azureStaticWebAppName
+    }
+    targetResource: {}
+  }
+}
 resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: '${dnszone.name}/www'
   properties: {
