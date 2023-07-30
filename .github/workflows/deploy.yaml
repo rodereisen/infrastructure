@@ -14,8 +14,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: Azure
+    environment: production
     steps:
       # - uses: actions/checkout@v3
       - uses: azure/login@v1
