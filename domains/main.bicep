@@ -29,6 +29,10 @@ param azureStaticWebAppName string
 @maxLength(100)
 param azureStaticWebResourceName string
 
+@minLength(2)
+@maxLength(100)
+param azureStaticWebResourceGroupName string
+
 // @minLength(2)
 // @maxLength(100)
 // param azureStaticWebAppToken string
@@ -52,7 +56,7 @@ resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
     TTL: ttl
     ARecords: []
     targetResource: {
-      id: subscriptionResourceId('Microsoft.Web/staticSites', azureStaticWebResourceName, azureStaticWebResourceName)
+      id: subscriptionResourceId('Microsoft.Web/staticSites', azureStaticWebResourceGroupName, azureStaticWebResourceName)
     }
   }
 }
