@@ -29,10 +29,6 @@ param azureStaticWebAppName string
 @maxLength(100)
 param azureStaticWebResourceName string
 
-@minLength(2)
-@maxLength(200)
-param staticSiteName string
-
 // @minLength(2)
 // @maxLength(100)
 // param azureStaticWebAppToken string
