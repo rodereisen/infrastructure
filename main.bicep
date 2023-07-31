@@ -27,7 +27,8 @@ param deploymentOperatorId string
 
 // Variables
 var azureStaticWebAppName = 'black-pebble-0f29bd703.azurestaticapps.net'
-
+var azureStaticWebResourceName == 'rodereisen-de'
+// apexResourceId: '/subscriptions/9696009b-e3a7-4a9f-b9a4-70b155ec5b87/resourceGroups/rodereisen-de/providers/Microsoft.Web/staticSites/rodereisen-de'
 // Setting target scope
 targetScope = 'subscription' // a 4-char suffix to add to the various names of azure resources to help them be unique, but still, previsible
 
@@ -57,8 +58,8 @@ module rodereisenDeDomain './domains/main.bicep' = {
   scope: domainsRg
   params: {
     azureStaticWebAppName: azureStaticWebAppName
-    // azureStaticWebAppName: website.outputs.siteUrl
-    // azureStaticWebAppToken: 'v300nrt5k9zpkjk6cybkdvhfjcmg5g71'
+    azureStaticWebResourceName: azureStaticWebResourceName
+    deployM365: true
     mscid: mscid
     domainName: 'rodereisen'
     topLevelDomainName: 'de'
@@ -69,16 +70,21 @@ module reisebuerorodeDeDomain './domains/main.bicep' = {
   scope: domainsRg
   params: {
     azureStaticWebAppName: azureStaticWebAppName
+    azureStaticWebResourceName: azureStaticWebResourceName
+    deployM365: false
     mscid: mscid
     domainName: 'reisebuerorode'
     topLevelDomainName: 'de'
   }
 }
 module reisebrorodeDeDomain './domains/main.bicep' = {
+  apexResourceId: '/subscriptions/9696009b-e3a7-4a9f-b9a4-70b155ec5b87/resourceGroups/rodereisen-de/providers/Microsoft.Web/staticSites/rodereisen-de'
   name: 'reisebrorodeDeDomain'
   scope: domainsRg
   params: {
     azureStaticWebAppName: azureStaticWebAppName
+    azureStaticWebResourceName: azureStaticWebResourceName
+    deployM365: false
     mscid: mscid
     domainName: 'xn--reisebrorode-ilb'
     topLevelDomainName: 'de'

@@ -25,11 +25,21 @@ param mscid string
 @maxLength(100)
 param azureStaticWebAppName string
 
+@minLength(2)
+@maxLength(100)
+param azureStaticWebResourceName string
+
+@minLength(2)
+@maxLength(200)
+param staticSiteName string
+
 // @minLength(2)
 // @maxLength(100)
 // param azureStaticWebAppToken string
 // Variables
 var ttl = 600
+
+param deployM365 bool
 
 // Resources
 resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
@@ -46,11 +56,11 @@ resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
     TTL: ttl
     ARecords: []
     targetResource: {
-      id: '/subscriptions/9696009b-e3a7-4a9f-b9a4-70b155ec5b87/resourceGroups/rodereisen-de/providers/Microsoft.Web/staticSites/rodereisen-de'
+      id: subscriptionResourceId('Microsoft.Web/staticSites', azureStaticWebResourceName, azureStaticWebResourceName)
     }
   }
 }
-resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'www'
   parent: dnszone
   properties: {
@@ -61,7 +71,7 @@ resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
     targetResource: {}
   }
 }
-resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = { 
+resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'msoid'
   parent: dnszone
   properties: {
@@ -72,7 +82,7 @@ resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
     targetResource: {}
   }
 }
-// resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+// resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
 //   name: '${dnszone.name}/autodiscover'
 //   properties: {
 //     TTL: ttl
@@ -82,7 +92,7 @@ resource msoid 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
 //     targetResource: {}
 //   }
 // }
-resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'autodiscover'
   parent: dnszone
   properties: {
@@ -93,7 +103,7 @@ resource autodiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
     targetResource: {}
   }
 }
-resource sip 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+resource sip 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'sip' 
   parent: dnszone
   properties: {
@@ -104,7 +114,7 @@ resource sip 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
     targetResource: {}
   }
 }
-resource lyncdiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+resource lyncdiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'lyncdiscover'
   parent: dnszone
   properties: {
@@ -115,7 +125,7 @@ resource lyncdiscover 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
     targetResource: {}
   }
 }
-resource enterpriseregistration 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+resource enterpriseregistration 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'enterpriseregistration'
   parent: dnszone
   properties: {
@@ -126,7 +136,7 @@ resource enterpriseregistration 'Microsoft.Network/dnszones/CNAME@2018-05-01' = 
     targetResource: {}
   }
 }
-resource enterpriseenrollment 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+resource enterpriseenrollment 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'enterpriseenrollment'
   parent: dnszone
   properties: {
@@ -138,7 +148,7 @@ resource enterpriseenrollment 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   }
 }
 // MX Records
-// resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
+// resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = if (deployM365) {
 //   name: '${dnszone.name}/@'
 //   properties: {
 //     TTL: ttl
@@ -150,7 +160,7 @@ resource enterpriseenrollment 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
 //     ]
 //   }
 // }
-resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
+resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = if (deployM365) {
   name: '@'
   parent: dnszone
   properties: {
@@ -176,7 +186,7 @@ resource mailProtection_MX 'Microsoft.Network/dnszones/MX@2018-05-01' = {
   }
 }
 // TXT Records
-resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
+resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = if (deployM365) {
   name: '@'
   parent: dnszone
   properties: {
@@ -196,7 +206,7 @@ resource txtRecords 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
   }
 }
 // SRV Records
-resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
+resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = if (deployM365) {
   name: '_sip._tls'
   parent: dnszone
   properties: {
@@ -211,7 +221,7 @@ resource srvSip 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
     ]
   }
 }
-resource srvSip2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
+resource srvSip2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = if (deployM365) {
   name: 'sip._tls'
   parent: dnszone
   properties: {
@@ -226,7 +236,7 @@ resource srvSip2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
     ]
   }
 }
-resource srvSipFederation 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
+resource srvSipFederation 'Microsoft.Network/dnsZones/SRV@2018-05-01' = if (deployM365) {
   name: '_sipfederationtls._tcp'
   parent: dnszone
   properties: {
@@ -241,7 +251,7 @@ resource srvSipFederation 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
     ]
   }
 }
-resource srvSipFederation2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = {
+resource srvSipFederation2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = if (deployM365) {
   name: 'sipfederationtls._tcp'
   parent: dnszone
   properties: {
