@@ -61,7 +61,7 @@ resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
     TTL: ttl
     ARecords: []
     targetResource: {
-      id: apexResourceId
+      id: apexresourceId
     }
   }
 }
