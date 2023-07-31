@@ -82,7 +82,6 @@ module reisebuerorodeDeDomain './domains/main.bicep' = {
   }
 }
 module reisebrorodeDeDomain './domains/main.bicep' = {
-  apexResourceId: '/subscriptions/9696009b-e3a7-4a9f-b9a4-70b155ec5b87/resourceGroups/rodereisen-de/providers/Microsoft.Web/staticSites/rodereisen-de'
   name: 'reisebrorodeDeDomain'
   scope: domainsRg
   params: {
