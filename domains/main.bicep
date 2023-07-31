@@ -39,6 +39,17 @@ resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
     zoneType: 'Public'
   }
 }
+resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
+  name: 'www'
+  parent: dnszone
+  properties: {
+    TTL: ttl
+    ARecords: []
+    targetResource: {
+      id: '9696009b-e3a7-4a9f-b9a4-70b155ec5b87'
+    }
+  }
+}
 resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: 'www'
   parent: dnszone
