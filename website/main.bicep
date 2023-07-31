@@ -42,7 +42,19 @@ resource staticSite 'Microsoft.Web/staticSites@2021-03-01' = {
   }
 }
 
+resource azStorageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
+  name: '${siteName}-function-app-storage'
+  location: location
+  kind: 'StorageV2'
+  sku: {
+    name: 'Standard_LRS'
+  }
+}
+var azStorageAccountPrimaryAccessKey = listKeys(azStorageAccount.id, azStorageAccount.apiVersion).keys[0].value
+
 // Output
 output siteName string = staticSite.name
 output siteUrl string = staticSite.properties.defaultHostname
 // output deployment_token string = listSecrets(staticSite.id, staticSite.apiVersion).properties.apiKey
+
+
