@@ -39,6 +39,9 @@ param azureStaticWebResourceGroupName string
 // Variables
 var ttl = 600
 
+// var apexresourceId = subscriptionResourceId('Microsoft.Web/staticSites', azureStaticWebResourceGroupName, azureStaticWebResourceName)
+var apexresourceId = '/subscriptions/9696009b-e3a7-4a9f-b9a4-70b155ec5b87/resourceGroups/rodereisen-de/providers/Microsoft.Web/staticSites/rodereisen-de'
+
 param deployM365 bool
 
 // Resources
@@ -56,7 +59,7 @@ resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
     TTL: ttl
     ARecords: []
     targetResource: {
-      id: subscriptionResourceId('Microsoft.Web/staticSites', azureStaticWebResourceGroupName, azureStaticWebResourceName)
+      id: apexResourceId
     }
   }
 }

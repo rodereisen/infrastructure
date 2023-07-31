@@ -30,7 +30,6 @@ var azureStaticWebAppName = 'black-pebble-0f29bd703.azurestaticapps.net'
 var azureStaticWebResourceGroupName = 'rodereisen-de'
 var azureStaticWebResourceName = 'rodereisen-de'
 
-// apexResourceId: '/subscriptions/9696009b-e3a7-4a9f-b9a4-70b155ec5b87/resourceGroups/rodereisen-de/providers/Microsoft.Web/staticSites/rodereisen-de'
 // Setting target scope
 targetScope = 'subscription' // a 4-char suffix to add to the various names of azure resources to help them be unique, but still, previsible
 
