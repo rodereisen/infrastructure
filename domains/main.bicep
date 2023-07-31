@@ -46,7 +46,7 @@ resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
     TTL: ttl
     ARecords: []
     targetResource: {
-      id: '9696009b-e3a7-4a9f-b9a4-70b155ec5b87'
+      id: '/subscriptions/9696009b-e3a7-4a9f-b9a4-70b155ec5b87/resourceGroups/rodereisen-de/providers/Microsoft.Web/staticSites/rodereisen-de'
     }
   }
 }
