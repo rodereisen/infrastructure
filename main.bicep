@@ -47,12 +47,11 @@ resource websiteRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
 //   }
 // }
 
-//// Domains
+// Domains
 resource domainsRg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: '${prefix}-domains'
   location: location
 }
-
 module rodereisenDeDomain './domains/main.bicep' = {
   name: 'rodereisenDeDomain'
   scope: domainsRg
@@ -72,6 +71,16 @@ module reisebuerorodeDeDomain './domains/main.bicep' = {
     azureStaticWebAppName: azureStaticWebAppName
     mscid: mscid
     domainName: 'reisebuerorode'
+    topLevelDomainName: 'de'
+  }
+}
+module reisebrorodeDeDomain './domains/main.bicep' = {
+  name: 'reisebrorodeDeDomain'
+  scope: domainsRg
+  params: {
+    azureStaticWebAppName: azureStaticWebAppName
+    mscid: mscid
+    domainName: 'xn--reisebrorode-ilb'
     topLevelDomainName: 'de'
   }
 }
