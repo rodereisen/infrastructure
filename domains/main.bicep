@@ -27,10 +27,12 @@ param azureStaticWebAppName string
 
 @minLength(2)
 @maxLength(100)
+#disable-next-line no-unused-params
 param azureStaticWebResourceName string
 
 @minLength(2)
 @maxLength(100)
+#disable-next-line no-unused-params
 param azureStaticWebResourceGroupName string
 
 // @minLength(2)
