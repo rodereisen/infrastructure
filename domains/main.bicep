@@ -54,16 +54,16 @@ resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
     zoneType: 'Public'
   }
 }
-resource apex 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '@'
-  parent: dnszone
-  properties: {
-    TTL: ttl
-    CNAMERecord: {
-      cname: azureStaticWebAppName  // should be like rodereisen-de.azurestaticapps.net
-    }
-  }
-}
+// resource apex 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+//   name: '@'
+//   parent: dnszone
+//   properties: {
+//     TTL: ttl
+//     CNAMERecord: {
+//       cname: azureStaticWebAppName
+//     }
+//   }
+// }
 resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'www'
   parent: dnszone
