@@ -65,17 +65,6 @@ resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
     }
   }
 }
-resource aws 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: 'aws'
-  parent: dnszone
-  properties: {
-    TTL: ttl
-    CNAMERecord: {
-      cname: '_457c8f0cbd1dd60500d341bb902ccabc.xlfgrmvvlj.acm-validations.awswip'
-    }
-    targetResource: {}
-  }
-}
 resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'www'
   parent: dnszone
@@ -282,3 +271,4 @@ resource srvSipFederation2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = if (dep
     ]
   }
 }
+
