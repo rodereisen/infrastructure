@@ -65,6 +65,17 @@ resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
     }
   }
 }
+resource aws 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+  name: '_2f58fb3786f4ba4e8212c7ffb58077e4'
+  parent: dnszone
+  properties: {
+    TTL: ttl
+    CNAMERecord: {
+      cname: '_457c8f0cbd1dd60500d341bb902ccabc.xlfgrmvvlj.acm-validations.aws'
+    }
+    targetResource: {}
+  }
+}
 resource www 'Microsoft.Network/dnszones/CNAME@2018-05-01' = if (deployM365) {
   name: 'www'
   parent: dnszone
