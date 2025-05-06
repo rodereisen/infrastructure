@@ -54,14 +54,13 @@ resource dnszone 'Microsoft.Network/dnszones@2018-05-01' = {
     zoneType: 'Public'
   }
 }
-resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
+resource apex 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   name: '@'
   parent: dnszone
   properties: {
     TTL: ttl
-    ARecords: []
-    targetResource: {
-      id: apexresourceId
+    CNAMERecord: {
+      cname: azureStaticWebAppName  // should be like rodereisen-de.azurestaticapps.net
     }
   }
 }
@@ -271,4 +270,14 @@ resource srvSipFederation2 'Microsoft.Network/dnsZones/SRV@2018-05-01' = if (dep
     ]
   }
 }
-
+resource aws 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
+  name: '_2f58fb3786f4ba4e8212c7ffb58077e4'
+  parent: dnszone
+  properties: {
+    TTL: ttl
+    CNAMERecord: {
+      cname: '_457c8f0cbd1dd60500d341bb902ccabc.xlfgrmvvlj.acm-validations.aws'
+    }
+    targetResource: {}
+  }
+}
