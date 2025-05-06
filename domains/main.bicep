@@ -42,7 +42,7 @@ param azureStaticWebResourceGroupName string
 var ttl = 600
 
 // var apexresourceId = '/subscriptions/9696009b-e3a7-4a9f-b9a4-70b155ec5b87/resourceGroups/rodereisen-de/providers/Microsoft.Web/staticSites/rodereisen-de'
-var apexresourceId = subscriptionResourceId('Microsoft.Web/staticSites/rodereisen-de', 'westeurope', 'rodereisen-de')
+// var apexresourceId = subscriptionResourceId('Microsoft.Web/staticSites/rodereisen-de', 'westeurope', 'rodereisen-de')
 
 param deployM365 bool
 
