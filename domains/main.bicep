@@ -66,7 +66,7 @@ resource apex 'Microsoft.Network/dnszones/A@2018-05-01' = {
   }
 }
 resource aws 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
-  name: '${dnszone.name}/aws'
+  name: 'aws'
   parent: dnszone
   properties: {
     TTL: ttl
