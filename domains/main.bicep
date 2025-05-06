@@ -71,7 +71,7 @@ resource aws 'Microsoft.Network/dnszones/CNAME@2018-05-01' = {
   properties: {
     TTL: ttl
     CNAMERecord: {
-      cname: '_457c8f0cbd1dd60500d341bb902ccabc.xlfgrmvvlj.acm-validations.aws.'
+      cname: '_457c8f0cbd1dd60500d341bb902ccabc.xlfgrmvvlj.acm-validations.awswip'
     }
     targetResource: {}
   }
